@@ -1,0 +1,1589 @@
+<rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:wfw="http://wellformedweb.org/CommentAPI/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" xmlns:slash="http://purl.org/rss/1.0/modules/slash/"><channel><title>奈斯</title><atom:link href="%7balternate%20%7bRSS%20application/rss+xml%20%20index%20alternate%20%20false%20false%20true%20false%20false%200%7d%20/index.xml%20https://nai.si/index.xml%7d" rel="self" type="application/rss+xml"/><link>https://nai.si/</link><managingEditor>m0rml1n</managingEditor><description>A simple, performance-first, SEO-friendly Hugo theme</description><lastBuildDate>Wed, 10 May 2023 18:21:47 +0800</lastBuildDate><language>zh-cn</language><generator>Hugo -- gohugo.io</generator><item><title>cloudflare回源任意端口</title><link>https://nai.si/2023/05/10/cloudflare%E5%9B%9E%E6%BA%90%E4%BB%BB%E6%84%8F%E7%AB%AF%E5%8F%A3.html/</link><pubDate>Wed, 10 May 2023 18:21:47 +0800</pubDate><guid>https://nai.si/2023/05/10/cloudflare%E5%9B%9E%E6%BA%90%E4%BB%BB%E6%84%8F%E7%AB%AF%E5%8F%A3.html/</guid><description>
+&lt;h2 class="group " id="前言"
+>前言&lt;a href="#%e5%89%8d%e8%a8%80"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;p>CDN的时候，我们只能使用CloudFlare指定的CDN的端口。但是我们有NAT机器只能使用一些非常规的端口，但是又需要使用CDN的情况呢？这时候我们可以使用CloudFlare推出的Origin Rules，来让CDN回源到任意一个端口。&lt;/p>
+&lt;h2 class="group " id="准备材料"
+>准备材料&lt;a href="#%e5%87%86%e5%a4%87%e6%9d%90%e6%96%99"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;ul>
+&lt;li>一枚CloudFlare账户&lt;/li>
+&lt;li>已经绑定到CF账户的域名&lt;/li>
+&lt;/ul>
+&lt;h2 class="group " id="部署"
+>部署&lt;a href="#%e9%83%a8%e7%bd%b2"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;ol>
+&lt;li>域名先解析，并开启小云朵。
+&lt;/li>
+&lt;li>进入SSL/TLS选项卡，将SSL选项调整为“灵活”
+&lt;/li>
+&lt;li>点击规则菜单下的Origin Rules，输入规则名称，字段和运算符按照下图选择，值输入完整的二级域名，点击重写到，然后输入端口号。一切准备就绪后就可以点击部署按钮。
+&lt;/li>
+&lt;/ol></description></item><item><title>甲骨文ARM服务器安装xfce桌面</title><link>https://nai.si/2023/04/19/%E7%94%B2%E9%AA%A8%E6%96%87arm%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%AE%89%E8%A3%85xfce%E6%A1%8C%E9%9D%A2.html/</link><pubDate>Wed, 19 Apr 2023 21:56:13 +0800</pubDate><guid>https://nai.si/2023/04/19/%E7%94%B2%E9%AA%A8%E6%96%87arm%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%AE%89%E8%A3%85xfce%E6%A1%8C%E9%9D%A2.html/</guid><description>
+&lt;h2 class="group " id="首先"
+>首先&lt;a href="#%e9%a6%96%e5%85%88"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;p>创建一个 4 核 24 GB 内存的 ARM 实例，系统选择 Ubuntu 20.04 。
+SSH 连接到服务器，先用萌咖脚本 DD 个 Debian 11 系统。&lt;/p>
+&lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-text" data-lang="text">&lt;span style="display:flex;">&lt;span>#更新apt源
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>apt-get update
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>#安装需要的工具包
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>apt-get install -y xz-utils openssl gawk file
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>#安装 Debian11
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>bash &amp;lt;(wget --no-check-certificate -qO- &amp;#39;https://moeclub.org/attachment/LinuxShell/InstallNET.sh&amp;#39;) -d 11 -v 64 -a -firmware
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>等待几分钟 DD 安装完毕之后，请立即更新密码。默认用户名为：root，默认密码为：MoeClub.org 。&lt;/p>
+&lt;h2 class="group " id="安装"
+>安装&lt;a href="#%e5%ae%89%e8%a3%85"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;p>再次 SSH 连接服务器，安装 xfce 桌面以及 xrdp :&lt;/p>
+&lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-text" data-lang="text">&lt;span style="display:flex;">&lt;span>apt-get update
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>apt install -y xfce4 dbus-x11 xrdp
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;h2 class="group " id="修改端口"
+>修改端口&lt;a href="#%e4%bf%ae%e6%94%b9%e7%ab%af%e5%8f%a3"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-text" data-lang="text">&lt;span style="display:flex;">&lt;span>#更换为高位端口
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>vi /etc/xrdp/xrdp.ini
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>prot = 3389
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>#重启 xrdp 服务
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>service xrdp restart
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>使用 Microsoft 远程桌面连接到服务器。
+&lt;/p>
+&lt;h2 class="group " id="为什么要给服务器安装图形界面"
+>为什么要给服务器安装图形界面&lt;a href="#%e4%b8%ba%e4%bb%80%e4%b9%88%e8%a6%81%e7%bb%99%e6%9c%8d%e5%8a%a1%e5%99%a8%e5%ae%89%e8%a3%85%e5%9b%be%e5%bd%a2%e7%95%8c%e9%9d%a2"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;p>当然是为了安装浏览器然后给老司機論壇的账号挂机刷在线时间升级，方便以后发帖求车啊。
+PS：Google Chrome 没有适配 ARM Linux 版，需要安装 Chromium ，并且在 VPS 上启动还需要加上 –no-sandbox 参数。&lt;/p></description></item><item><title>短代码（Shortcodes）</title><link>https://nai.si/2023/04/10/shortcodes.html/</link><pubDate>Mon, 10 Apr 2023 13:11:47 +0200</pubDate><guid>https://nai.si/2023/04/10/shortcodes.html/</guid><description>
+&lt;h2 class="group " id="abbr"
+>Abbr&lt;a href="#abbr"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-markdown" data-lang="markdown">&lt;span style="display:flex;">&lt;span>{{&amp;lt; &lt;span style="color:#ff79c6">abbr&lt;/span> &amp;#34;&lt;span style="color:#50fa7b">AWSL&lt;/span>&amp;#34; &amp;#34;&lt;span style="color:#50fa7b">啊我死了&lt;/span>&amp;#34; &amp;gt;}}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;abbr title="啊我死了">AWSL&lt;/abbr>
+&lt;h2 class="group " id="彩色文字"
+>彩色文字&lt;a href="#%e5%bd%a9%e8%89%b2%e6%96%87%e5%ad%97"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-markdown" data-lang="markdown">&lt;span style="display:flex;">&lt;span>{{&amp;lt; &lt;span style="color:#ff79c6">color&lt;/span> &amp;#34;&lt;span style="color:#50fa7b">red&lt;/span>&amp;#34; &amp;#34;&lt;span style="color:#50fa7b">红色&lt;/span>&amp;#34; &amp;gt;}}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>{{&amp;lt; &lt;span style="color:#ff79c6">color&lt;/span> &amp;#34;&lt;span style="color:#50fa7b">green&lt;/span>&amp;#34; &amp;#34;&lt;span style="color:#50fa7b">绿色&lt;/span>&amp;#34; &amp;gt;}}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>{{&amp;lt; &lt;span style="color:#ff79c6">color&lt;/span> &amp;#34;&lt;span style="color:#50fa7b">blue&lt;/span>&amp;#34; &amp;#34;&lt;span style="color:#50fa7b">蓝色&lt;/span>&amp;#34; &amp;gt;}}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>{{&amp;lt; &lt;span style="color:#ff79c6">color&lt;/span> &amp;#34;&lt;span style="color:#50fa7b">orange&lt;/span>&amp;#34; &amp;#34;&lt;span style="color:#50fa7b">橙色&lt;/span>&amp;#34; &amp;gt;}}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>{{&amp;lt; &lt;span style="color:#ff79c6">color&lt;/span> &amp;#34;&lt;span style="color:#50fa7b">theme&lt;/span>&amp;#34; &amp;#34;&lt;span style="color:#50fa7b">主题色&lt;/span>&amp;#34; &amp;gt;}}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>{{&amp;lt; &lt;span style="color:#ff79c6">color&lt;/span> &amp;#34;#&lt;span style="color:#50fa7b">a811ff&lt;/span>&amp;#34; &amp;#34;&lt;span style="color:#50fa7b">自定义颜色&lt;/span>&amp;#34; &amp;gt;}}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;span class="text-red-400">红色&lt;/span>&lt;br>
+&lt;span class="text-green-400">绿色&lt;/span>&lt;br>
+&lt;span class="text-blue-400">蓝色&lt;/span>&lt;br>
+&lt;span class="text-orange-400">橙色&lt;/span>&lt;br>
+&lt;span class="text-theme">主题色&lt;/span>&lt;br>
+&lt;span style="color:#a811ff">自定义颜色&lt;/span>&lt;/p>
+&lt;h2 class="group " id="按钮"
+>按钮&lt;a href="#%e6%8c%89%e9%92%ae"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-markdown" data-lang="markdown">&lt;span style="display:flex;">&lt;span>{{&amp;lt; &lt;span style="color:#ff79c6">button&lt;/span> &lt;span style="color:#50fa7b">content&lt;/span>&lt;span style="color:#ff79c6">=&lt;/span>&lt;span style="color:#f1fa8c">&amp;#34;小按钮&amp;#34;&lt;/span> &lt;span style="color:#50fa7b">size&lt;/span>&lt;span style="color:#ff79c6">=&lt;/span>&lt;span style="color:#f1fa8c">&amp;#34;small&amp;#34;&lt;/span> &amp;gt;}}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>{{&amp;lt; &lt;span style="color:#ff79c6">button&lt;/span> &lt;span style="color:#50fa7b">content&lt;/span>&lt;span style="color:#ff79c6">=&lt;/span>&lt;span style="color:#f1fa8c">&amp;#34;普通按钮&amp;#34;&lt;/span> &lt;span style="color:#50fa7b">size&lt;/span>&lt;span style="color:#ff79c6">=&lt;/span>&lt;span style="color:#f1fa8c">&amp;#34;normal&amp;#34;&lt;/span> &amp;gt;}}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>{{&amp;lt; &lt;span style="color:#ff79c6">button&lt;/span> &lt;span style="color:#50fa7b">content&lt;/span>&lt;span style="color:#ff79c6">=&lt;/span>&lt;span style="color:#f1fa8c">&amp;#34;大按钮&amp;#34;&lt;/span> &lt;span style="color:#50fa7b">size&lt;/span>&lt;span style="color:#ff79c6">=&lt;/span>&lt;span style="color:#f1fa8c">&amp;#34;large&amp;#34;&lt;/span> &amp;gt;}}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>{{&amp;lt; &lt;span style="color:#ff79c6">button&lt;/span> &lt;span style="color:#50fa7b">color&lt;/span>&lt;span style="color:#ff79c6">=&lt;/span>&lt;span style="color:#f1fa8c">&amp;#34;theme&amp;#34;&lt;/span> &lt;span style="color:#50fa7b">icon&lt;/span>&lt;span style="color:#ff79c6">=&lt;/span>&lt;span style="color:#f1fa8c">&amp;#34;eva eva-heart&amp;#34;&lt;/span> &lt;span style="color:#50fa7b">content&lt;/span>&lt;span style="color:#ff79c6">=&lt;/span>&lt;span style="color:#f1fa8c">&amp;#34;主题色按钮&amp;#34;&lt;/span> &lt;span style="color:#50fa7b">link&lt;/span>&lt;span style="color:#ff79c6">=&lt;/span>&lt;span style="color:#f1fa8c">&amp;#34;https://google.com&amp;#34;&lt;/span> &amp;gt;}}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>{{&amp;lt; &lt;span style="color:#ff79c6">button&lt;/span> &lt;span style="color:#50fa7b">color&lt;/span>&lt;span style="color:#ff79c6">=&lt;/span>&lt;span style="color:#f1fa8c">&amp;#34;red&amp;#34;&lt;/span> &lt;span style="color:#50fa7b">icon&lt;/span>&lt;span style="color:#ff79c6">=&lt;/span>&lt;span style="color:#f1fa8c">&amp;#34;eva eva-home&amp;#34;&lt;/span> &lt;span style="color:#50fa7b">content&lt;/span>&lt;span style="color:#ff79c6">=&lt;/span>&lt;span style="color:#f1fa8c">&amp;#34;红色按钮&amp;#34;&lt;/span> &lt;span style="color:#50fa7b">link&lt;/span>&lt;span style="color:#ff79c6">=&lt;/span>&lt;span style="color:#f1fa8c">&amp;#34;https://google.com&amp;#34;&lt;/span> &amp;gt;}}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>{{&amp;lt; &lt;span style="color:#ff79c6">button&lt;/span> &lt;span style="color:#50fa7b">color&lt;/span>&lt;span style="color:#ff79c6">=&lt;/span>&lt;span style="color:#f1fa8c">&amp;#34;green&amp;#34;&lt;/span> &lt;span style="color:#50fa7b">icon&lt;/span>&lt;span style="color:#ff79c6">=&lt;/span>&lt;span style="color:#f1fa8c">&amp;#34;eva eva-twitter&amp;#34;&lt;/span> &lt;span style="color:#50fa7b">content&lt;/span>&lt;span style="color:#ff79c6">=&lt;/span>&lt;span style="color:#f1fa8c">&amp;#34;绿色按钮&amp;#34;&lt;/span> &lt;span style="color:#50fa7b">link&lt;/span>&lt;span style="color:#ff79c6">=&lt;/span>&lt;span style="color:#f1fa8c">&amp;#34;https://google.com&amp;#34;&lt;/span> &amp;gt;}}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>{{&amp;lt; &lt;span style="color:#ff79c6">button&lt;/span> &lt;span style="color:#50fa7b">color&lt;/span>&lt;span style="color:#ff79c6">=&lt;/span>&lt;span style="color:#f1fa8c">&amp;#34;blue&amp;#34;&lt;/span> &lt;span style="color:#50fa7b">icon&lt;/span>&lt;span style="color:#ff79c6">=&lt;/span>&lt;span style="color:#f1fa8c">&amp;#34;eva eva-github&amp;#34;&lt;/span> &lt;span style="color:#50fa7b">content&lt;/span>&lt;span style="color:#ff79c6">=&lt;/span>&lt;span style="color:#f1fa8c">&amp;#34;蓝色按钮&amp;#34;&lt;/span> &lt;span style="color:#50fa7b">link&lt;/span>&lt;span style="color:#ff79c6">=&lt;/span>&lt;span style="color:#f1fa8c">&amp;#34;https://google.com&amp;#34;&lt;/span> &amp;gt;}}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>{{&amp;lt; &lt;span style="color:#ff79c6">button&lt;/span> &lt;span style="color:#50fa7b">color&lt;/span>&lt;span style="color:#ff79c6">=&lt;/span>&lt;span style="color:#f1fa8c">&amp;#34;orange&amp;#34;&lt;/span> &lt;span style="color:#50fa7b">icon&lt;/span>&lt;span style="color:#ff79c6">=&lt;/span>&lt;span style="color:#f1fa8c">&amp;#34;eva eva-search&amp;#34;&lt;/span> &lt;span style="color:#50fa7b">content&lt;/span>&lt;span style="color:#ff79c6">=&lt;/span>&lt;span style="color:#f1fa8c">&amp;#34;橙色按钮&amp;#34;&lt;/span> &lt;span style="color:#50fa7b">link&lt;/span>&lt;span style="color:#ff79c6">=&lt;/span>&lt;span style="color:#f1fa8c">&amp;#34;https://google.com&amp;#34;&lt;/span> &amp;gt;}}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>{{&amp;lt; &lt;span style="color:#ff79c6">button-outline&lt;/span> &lt;span style="color:#50fa7b">color&lt;/span>&lt;span style="color:#ff79c6">=&lt;/span>&lt;span style="color:#f1fa8c">&amp;#34;theme&amp;#34;&lt;/span> &lt;span style="color:#50fa7b">icon&lt;/span>&lt;span style="color:#ff79c6">=&lt;/span>&lt;span style="color:#f1fa8c">&amp;#34;eva eva-heart&amp;#34;&lt;/span> &lt;span style="color:#50fa7b">content&lt;/span>&lt;span style="color:#ff79c6">=&lt;/span>&lt;span style="color:#f1fa8c">&amp;#34;主题色按钮&amp;#34;&lt;/span> &lt;span style="color:#50fa7b">link&lt;/span>&lt;span style="color:#ff79c6">=&lt;/span>&lt;span style="color:#f1fa8c">&amp;#34;https://google.com&amp;#34;&lt;/span> &amp;gt;}}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>{{&amp;lt; &lt;span style="color:#ff79c6">button-outline&lt;/span> &lt;span style="color:#50fa7b">color&lt;/span>&lt;span style="color:#ff79c6">=&lt;/span>&lt;span style="color:#f1fa8c">&amp;#34;red&amp;#34;&lt;/span> &lt;span style="color:#50fa7b">icon&lt;/span>&lt;span style="color:#ff79c6">=&lt;/span>&lt;span style="color:#f1fa8c">&amp;#34;eva eva-home&amp;#34;&lt;/span> &lt;span style="color:#50fa7b">content&lt;/span>&lt;span style="color:#ff79c6">=&lt;/span>&lt;span style="color:#f1fa8c">&amp;#34;红色按钮&amp;#34;&lt;/span> &lt;span style="color:#50fa7b">link&lt;/span>&lt;span style="color:#ff79c6">=&lt;/span>&lt;span style="color:#f1fa8c">&amp;#34;https://google.com&amp;#34;&lt;/span> &amp;gt;}}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>{{&amp;lt; &lt;span style="color:#ff79c6">button-outline&lt;/span> &lt;span style="color:#50fa7b">color&lt;/span>&lt;span style="color:#ff79c6">=&lt;/span>&lt;span style="color:#f1fa8c">&amp;#34;green&amp;#34;&lt;/span> &lt;span style="color:#50fa7b">icon&lt;/span>&lt;span style="color:#ff79c6">=&lt;/span>&lt;span style="color:#f1fa8c">&amp;#34;eva eva-twitter&amp;#34;&lt;/span> &lt;span style="color:#50fa7b">content&lt;/span>&lt;span style="color:#ff79c6">=&lt;/span>&lt;span style="color:#f1fa8c">&amp;#34;绿色按钮&amp;#34;&lt;/span> &lt;span style="color:#50fa7b">link&lt;/span>&lt;span style="color:#ff79c6">=&lt;/span>&lt;span style="color:#f1fa8c">&amp;#34;https://google.com&amp;#34;&lt;/span> &amp;gt;}}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>{{&amp;lt; &lt;span style="color:#ff79c6">button-outline&lt;/span> &lt;span style="color:#50fa7b">color&lt;/span>&lt;span style="color:#ff79c6">=&lt;/span>&lt;span style="color:#f1fa8c">&amp;#34;blue&amp;#34;&lt;/span> &lt;span style="color:#50fa7b">icon&lt;/span>&lt;span style="color:#ff79c6">=&lt;/span>&lt;span style="color:#f1fa8c">&amp;#34;eva eva-github&amp;#34;&lt;/span> &lt;span style="color:#50fa7b">content&lt;/span>&lt;span style="color:#ff79c6">=&lt;/span>&lt;span style="color:#f1fa8c">&amp;#34;蓝色按钮&amp;#34;&lt;/span> &lt;span style="color:#50fa7b">link&lt;/span>&lt;span style="color:#ff79c6">=&lt;/span>&lt;span style="color:#f1fa8c">&amp;#34;https://google.com&amp;#34;&lt;/span> &amp;gt;}}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>{{&amp;lt; &lt;span style="color:#ff79c6">button-outline&lt;/span> &lt;span style="color:#50fa7b">color&lt;/span>&lt;span style="color:#ff79c6">=&lt;/span>&lt;span style="color:#f1fa8c">&amp;#34;orange&amp;#34;&lt;/span> &lt;span style="color:#50fa7b">icon&lt;/span>&lt;span style="color:#ff79c6">=&lt;/span>&lt;span style="color:#f1fa8c">&amp;#34;eva eva-search&amp;#34;&lt;/span> &lt;span style="color:#50fa7b">content&lt;/span>&lt;span style="color:#ff79c6">=&lt;/span>&lt;span style="color:#f1fa8c">&amp;#34;橙色按钮&amp;#34;&lt;/span> &lt;span style="color:#50fa7b">link&lt;/span>&lt;span style="color:#ff79c6">=&lt;/span>&lt;span style="color:#f1fa8c">&amp;#34;https://google.com&amp;#34;&lt;/span> &amp;gt;}}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div style="font-size: 0;">
+&lt;div class="bg-theme text-sm px-3 py-1.5 m-1 inline-flex cursor-pointer items-center rounded align-bottom text-white transition hover:opacity-80">
+&lt;i class=" mr-1">&lt;/i>
+&lt;span>小按钮&lt;/span>
+&lt;/div>
+&lt;div class="bg-theme text-base px-4 py-2 m-1 inline-flex cursor-pointer items-center rounded align-bottom text-white transition hover:opacity-80">
+&lt;i class=" mr-1">&lt;/i>
+&lt;span>普通按钮&lt;/span>
+&lt;/div>
+&lt;div class="bg-theme text-lg px-5 py-3 m-1 inline-flex cursor-pointer items-center rounded align-bottom text-white transition hover:opacity-80">
+&lt;i class=" mr-1">&lt;/i>
+&lt;span>大按钮&lt;/span>
+&lt;/div>
+&lt;p>&lt;a
+href="https://google.com"
+target="_blank"
+class="no-icon bg-theme text-base px-4 py-2 m-1 inline-flex cursor-pointer items-center rounded align-bottom transition after:hidden hover:opacity-80"
+>
+&lt;i class="eva eva-heart mr-1 text-white">&lt;/i>
+&lt;span class=" text-white">主题色按钮&lt;/span>
+&lt;/a>
+&lt;a
+href="https://google.com"
+target="_blank"
+class="no-icon bg-red-400 text-base px-4 py-2 m-1 inline-flex cursor-pointer items-center rounded align-bottom transition after:hidden hover:opacity-80"
+>
+&lt;i class="eva eva-home mr-1 text-white">&lt;/i>
+&lt;span class=" text-white">红色按钮&lt;/span>
+&lt;/a>
+&lt;a
+href="https://google.com"
+target="_blank"
+class="no-icon bg-green-400 text-base px-4 py-2 m-1 inline-flex cursor-pointer items-center rounded align-bottom transition after:hidden hover:opacity-80"
+>
+&lt;i class="eva eva-twitter mr-1 text-white">&lt;/i>
+&lt;span class=" text-white">绿色按钮&lt;/span>
+&lt;/a>
+&lt;a
+href="https://google.com"
+target="_blank"
+class="no-icon bg-blue-400 text-base px-4 py-2 m-1 inline-flex cursor-pointer items-center rounded align-bottom transition after:hidden hover:opacity-80"
+>
+&lt;i class="eva eva-github mr-1 text-white">&lt;/i>
+&lt;span class=" text-white">蓝色按钮&lt;/span>
+&lt;/a>
+&lt;a
+href="https://google.com"
+target="_blank"
+class="no-icon bg-orange-400 text-base px-4 py-2 m-1 inline-flex cursor-pointer items-center rounded align-bottom transition after:hidden hover:opacity-80"
+>
+&lt;i class="eva eva-search mr-1 text-white">&lt;/i>
+&lt;span class=" text-white">橙色按钮&lt;/span>
+&lt;/a>&lt;/p>
+&lt;p>&lt;a
+href="https://google.com"
+target="_blank"
+class="no-icon bg-theme/10 text-theme hover:bg-theme/5 text-base px-4 py-2 m-1 inline-flex cursor-pointer items-center rounded transition after:hidden"
+>
+&lt;i class="eva eva-heart mr-1 text-inherit">&lt;/i>
+&lt;span class=" text-inherit">主题色按钮&lt;/span>
+&lt;/a>
+&lt;a
+href="https://google.com"
+target="_blank"
+class="no-icon bg-red-500/10 text-red-500 hover:bg-red-500/5 text-base px-4 py-2 m-1 inline-flex cursor-pointer items-center rounded transition after:hidden"
+>
+&lt;i class="eva eva-home mr-1 text-inherit">&lt;/i>
+&lt;span class=" text-inherit">红色按钮&lt;/span>
+&lt;/a>
+&lt;a
+href="https://google.com"
+target="_blank"
+class="no-icon bg-green-500/10 text-green-500 hover:bg-green-500/5 text-base px-4 py-2 m-1 inline-flex cursor-pointer items-center rounded transition after:hidden"
+>
+&lt;i class="eva eva-twitter mr-1 text-inherit">&lt;/i>
+&lt;span class=" text-inherit">绿色按钮&lt;/span>
+&lt;/a>
+&lt;a
+href="https://google.com"
+target="_blank"
+class="no-icon bg-blue-500/10 text-blue-500 hover:bg-blue-500/5 text-base px-4 py-2 m-1 inline-flex cursor-pointer items-center rounded transition after:hidden"
+>
+&lt;i class="eva eva-github mr-1 text-inherit">&lt;/i>
+&lt;span class=" text-inherit">蓝色按钮&lt;/span>
+&lt;/a>
+&lt;a
+href="https://google.com"
+target="_blank"
+class="no-icon bg-orange-500/10 text-orange-500 hover:bg-orange-500/5 text-base px-4 py-2 m-1 inline-flex cursor-pointer items-center rounded transition after:hidden"
+>
+&lt;i class="eva eva-search mr-1 text-inherit">&lt;/i>
+&lt;span class=" text-inherit">橙色按钮&lt;/span>
+&lt;/a>&lt;/p>
+&lt;/div>
+&lt;h2 class="group " id="文字排版"
+>文字排版&lt;a href="#%e6%96%87%e5%ad%97%e6%8e%92%e7%89%88"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-markdown" data-lang="markdown">&lt;span style="display:flex;">&lt;span>{{&amp;lt; &lt;span style="color:#ff79c6">align&lt;/span> &lt;span style="color:#50fa7b">left&lt;/span> &amp;#34;&lt;span style="color:#50fa7b">文字居左&lt;/span>&amp;#34; &amp;gt;}}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>{{&amp;lt; &lt;span style="color:#ff79c6">align&lt;/span> &lt;span style="color:#50fa7b">center&lt;/span> &amp;#34;&lt;span style="color:#50fa7b">文字居中&lt;/span>&amp;#34; &amp;gt;}}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>{{&amp;lt; &lt;span style="color:#ff79c6">align&lt;/span> &lt;span style="color:#50fa7b">right&lt;/span> &amp;#34;&lt;span style="color:#50fa7b">文字居右&lt;/span>&amp;#34; &amp;gt;}}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p style="text-align:left">文字居左&lt;/p>
+&lt;p style="text-align:center">文字居中&lt;/p>
+&lt;p style="text-align:right">文字居右&lt;/p>
+&lt;h2 class="group " id="github"
+>GitHub&lt;a href="#github"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-markdown" data-lang="markdown">&lt;span style="display:flex;">&lt;span>{{&amp;lt; &lt;span style="color:#ff79c6">github&lt;/span> &lt;span style="color:#50fa7b">name&lt;/span>&lt;span style="color:#ff79c6">=&lt;/span>&lt;span style="color:#f1fa8c">&amp;#34;tailwindlabs/tailwindcss&amp;#34;&lt;/span> &lt;span style="color:#50fa7b">link&lt;/span>&lt;span style="color:#ff79c6">=&lt;/span>&lt;span style="color:#f1fa8c">&amp;#34;https://github.com/tailwindlabs/tailwindcss&amp;#34;&lt;/span> &lt;span style="color:#50fa7b">description&lt;/span>&lt;span style="color:#ff79c6">=&lt;/span>&lt;span style="color:#f1fa8c">&amp;#34;A utility-first CSS framework for rapid UI development.&amp;#34;&lt;/span> &lt;span style="color:#50fa7b">color&lt;/span>&lt;span style="color:#ff79c6">=&lt;/span>&lt;span style="color:#f1fa8c">&amp;#34;#f1e05a&amp;#34;&lt;/span> &lt;span style="color:#50fa7b">language&lt;/span>&lt;span style="color:#ff79c6">=&lt;/span>&lt;span style="color:#f1fa8c">&amp;#34;JavaScript&amp;#34;&lt;/span> &amp;gt;}}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="github my-4 rounded border p-4 dark:border-darkBorder">
+&lt;div class="flex items-center text-xl">
+&lt;i class="eva eva-github mr-2">&lt;/i>
+&lt;a class="after:hidden" href="https://github.com/tailwindlabs/tailwindcss" target="_blank">tailwindlabs/tailwindcss&lt;/a>
+&lt;/div>
+&lt;div class="my-2 leading-6">A utility-first CSS framework for rapid UI development.&lt;/div>
+&lt;div class="flex items-center">
+&lt;span class="mr-1 inline-block h-3 w-3 rounded-full" style="background-color:#f1e05a">&lt;/span>
+&lt;span>JavaScript&lt;/span>
+&lt;/div>
+&lt;/div>
+&lt;h2 class="group " id="github-自动获取"
+>GitHub 自动获取&lt;a href="#github-%e8%87%aa%e5%8a%a8%e8%8e%b7%e5%8f%96"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-markdown" data-lang="markdown">&lt;span style="display:flex;">&lt;span>{{&amp;lt; &lt;span style="color:#ff79c6">github-auto&lt;/span> &lt;span style="color:#50fa7b">name&lt;/span>&lt;span style="color:#ff79c6">=&lt;/span>&lt;span style="color:#f1fa8c">&amp;#34;Ice-Hazymoon/hugo-theme-luna&amp;#34;&lt;/span> &amp;gt;}}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="github my-4 rounded border p-4 dark:border-darkBorder">
+&lt;div class="flex items-center text-xl">
+&lt;i class="eva eva-github mr-2">&lt;/i>
+&lt;a class="after:hidden" href="https://github.com/Ice-Hazymoon/hugo-theme-luna" target="_blank">Ice-Hazymoon/hugo-theme-luna&lt;/a>
+&lt;/div>
+&lt;div class="my-2 leading-6">A simple, performance-first, SEO-friendly Hugo theme / 一个轻量，快速，SEO 友好的 Hugo 主题&lt;/div>
+&lt;div class="flex items-center">
+&lt;div class="mr-4 inline-flex items-center">
+&lt;span class="mr-1 inline-block h-3 w-3 rounded-full" style="background-color:#f1e05a">&lt;/span>
+&lt;span>JavaScript&lt;/span>
+&lt;/div>
+&lt;div class="mr-4 inline-flex items-center">
+&lt;i class="eva eva-star mr-1 text-amber-400">&lt;/i>
+&lt;span>231&lt;/span>
+&lt;/div>
+&lt;div class="inline-flex items-center">
+&lt;i class="eva eva-shuffle-2 mr-1 text-blue-500">&lt;/i>
+&lt;span>33&lt;/span>
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;h2 class="group " id="notice"
+>Notice&lt;a href="#notice"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-markdown" data-lang="markdown">&lt;span style="display:flex;">&lt;span>{{&amp;lt; &lt;span style="color:#ff79c6">notice&lt;/span> &lt;span style="color:#50fa7b">warn&lt;/span> &amp;gt;}}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>十里青山远，潮平路带沙。数声啼鸟怨年华。又是凄凉时候，在天涯。白露收残月，清风散晓霞。绿杨堤畔问荷花。记得年时沽酒，那人家。
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>{{&amp;lt; /&lt;span style="color:#ff79c6">notice&lt;/span> &amp;gt;}}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>{{&amp;lt; &lt;span style="color:#ff79c6">notice&lt;/span> &lt;span style="color:#50fa7b">error&lt;/span> &amp;gt;}}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>十里青山远，潮平路带沙。数声啼鸟怨年华。又是凄凉时候，在天涯。白露收残月，清风散晓霞。绿杨堤畔问荷花。记得年时沽酒，那人家。
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>{{&amp;lt; /&lt;span style="color:#ff79c6">notice&lt;/span> &amp;gt;}}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>{{&amp;lt; &lt;span style="color:#ff79c6">notice&lt;/span> &lt;span style="color:#50fa7b">info&lt;/span> &amp;gt;}}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>十里青山远，潮平路带沙。数声啼鸟怨年华。又是凄凉时候，在天涯。白露收残月，清风散晓霞。绿杨堤畔问荷花。记得年时沽酒，那人家。
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>{{&amp;lt; /&lt;span style="color:#ff79c6">notice&lt;/span> &amp;gt;}}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>{{&amp;lt; &lt;span style="color:#ff79c6">notice&lt;/span> &lt;span style="color:#50fa7b">success&lt;/span> &amp;gt;}}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>十里青山远，潮平路带沙。数声啼鸟怨年华。又是凄凉时候，在天涯。白露收残月，清风散晓霞。绿杨堤畔问荷花。记得年时沽酒，那人家。
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>{{&amp;lt; /&lt;span style="color:#ff79c6">notice&lt;/span> &amp;gt;}}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="border-yellow-400 border-green-400 border-red-400 border-blue-400">&lt;/div>
+&lt;div class="bg-yellow-400 bg-green-400 bg-red-400 bg-blue-400">&lt;/div>
+&lt;div class="text-yellow-400 text-green-400 text-red-400 text-blue-400">&lt;/div>
+&lt;div
+class="border-yellow-400 bg-yellow-400 my-4 ml-0 flex items-start rounded border-l-4 bg-opacity-10 p-5 dark:bg-darkBgAccent"
+>
+&lt;div class="mr-2">
+&lt;i class="eva text-yellow-400 eva-alert-circle-outline text-2xl">&lt;/i>
+&lt;/div>&lt;p style="margin: 0;">十里青山远，潮平路带沙。数声啼鸟怨年华。又是凄凉时候，在天涯。白露收残月，清风散晓霞。绿杨堤畔问荷花。记得年时沽酒，那人家。&lt;/p>&lt;/div>
+&lt;div class="border-yellow-400 border-green-400 border-red-400 border-blue-400">&lt;/div>
+&lt;div class="bg-yellow-400 bg-green-400 bg-red-400 bg-blue-400">&lt;/div>
+&lt;div class="text-yellow-400 text-green-400 text-red-400 text-blue-400">&lt;/div>
+&lt;div
+class="border-red-400 bg-red-400 my-4 ml-0 flex items-start rounded border-l-4 bg-opacity-10 p-5 dark:bg-darkBgAccent"
+>
+&lt;div class="mr-2">
+&lt;i class="eva text-red-400 eva-minus-circle-outline text-2xl">&lt;/i>
+&lt;/div>&lt;p style="margin: 0;">十里青山远，潮平路带沙。数声啼鸟怨年华。又是凄凉时候，在天涯。白露收残月，清风散晓霞。绿杨堤畔问荷花。记得年时沽酒，那人家。&lt;/p>&lt;/div>
+&lt;div class="border-yellow-400 border-green-400 border-red-400 border-blue-400">&lt;/div>
+&lt;div class="bg-yellow-400 bg-green-400 bg-red-400 bg-blue-400">&lt;/div>
+&lt;div class="text-yellow-400 text-green-400 text-red-400 text-blue-400">&lt;/div>
+&lt;div
+class="border-blue-400 bg-blue-400 my-4 ml-0 flex items-start rounded border-l-4 bg-opacity-10 p-5 dark:bg-darkBgAccent"
+>
+&lt;div class="mr-2">
+&lt;i class="eva text-blue-400 eva-question-mark-circle-outline text-2xl">&lt;/i>
+&lt;/div>&lt;p style="margin: 0;">十里青山远，潮平路带沙。数声啼鸟怨年华。又是凄凉时候，在天涯。白露收残月，清风散晓霞。绿杨堤畔问荷花。记得年时沽酒，那人家。&lt;/p>&lt;/div>
+&lt;div class="border-yellow-400 border-green-400 border-red-400 border-blue-400">&lt;/div>
+&lt;div class="bg-yellow-400 bg-green-400 bg-red-400 bg-blue-400">&lt;/div>
+&lt;div class="text-yellow-400 text-green-400 text-red-400 text-blue-400">&lt;/div>
+&lt;div
+class="border-green-400 bg-green-400 my-4 ml-0 flex items-start rounded border-l-4 bg-opacity-10 p-5 dark:bg-darkBgAccent"
+>
+&lt;div class="mr-2">
+&lt;i class="eva text-green-400 eva-checkmark-circle-2-outline text-2xl">&lt;/i>
+&lt;/div>&lt;p style="margin: 0;">十里青山远，潮平路带沙。数声啼鸟怨年华。又是凄凉时候，在天涯。白露收残月，清风散晓霞。绿杨堤畔问荷花。记得年时沽酒，那人家。&lt;/p>&lt;/div>
+&lt;h2 class="group " id="引用"
+>引用&lt;a href="#%e5%bc%95%e7%94%a8"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-markdown" data-lang="markdown">&lt;span style="display:flex;">&lt;span>{{&amp;lt; &lt;span style="color:#ff79c6">quote&lt;/span> &amp;gt;}}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>十里青山远，潮平路带沙。数声啼鸟怨年华。又是凄凉时候，在天涯。白露收残月，清风散晓霞。绿杨堤畔问荷花。记得年时沽酒，那人家。
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>{{&amp;lt; /&lt;span style="color:#ff79c6">quote&lt;/span> &amp;gt;}}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;blockquote class="quote relative pl-10 text-gray-500 dark:text-gray-400">&lt;p>十里青山远，潮平路带沙。数声啼鸟怨年华。又是凄凉时候，在天涯。白露收残月，清风散晓霞。绿杨堤畔问荷花。记得年时沽酒，那人家。&lt;/p>&lt;/blockquote>
+&lt;h2 class="group " id="居中引用"
+>居中引用&lt;a href="#%e5%b1%85%e4%b8%ad%e5%bc%95%e7%94%a8"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-markdown" data-lang="markdown">&lt;span style="display:flex;">&lt;span>{{&amp;lt; &lt;span style="color:#ff79c6">quote-center&lt;/span> &amp;gt;}}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>十里青山远，潮平路带沙
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>数声啼鸟怨年华
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>又是凄凉时候，在天涯
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>白露收残月，清风散晓霞
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>绿杨堤畔问荷花
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>记得年时沽酒，那人家
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>{{&amp;lt; /&lt;span style="color:#ff79c6">quote-center&lt;/span> &amp;gt;}}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;blockquote class="quote quote-center relative rounded-none border-y border-gray-200 py-4 text-center dark:border-darkBorder">&lt;p>十里青山远，潮平路带沙&lt;br>
+数声啼鸟怨年华&lt;br>
+又是凄凉时候，在天涯&lt;br>
+白露收残月，清风散晓霞&lt;br>
+绿杨堤畔问荷花&lt;br>
+记得年时沽酒，那人家&lt;/p>&lt;/blockquote>
+&lt;h2 class="group " id="标签"
+>标签&lt;a href="#%e6%a0%87%e7%ad%be"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-markdown" data-lang="markdown">&lt;span style="display:flex;">&lt;span>这是一个 {{&amp;lt; &lt;span style="color:#ff79c6">tag&lt;/span> &lt;span style="color:#50fa7b">theme&lt;/span> &amp;#34;&lt;span style="color:#50fa7b">主题色标签&lt;/span>&amp;#34; &amp;gt;}}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>这是一个 {{&amp;lt; &lt;span style="color:#ff79c6">tag&lt;/span> &lt;span style="color:#50fa7b">red&lt;/span> &amp;#34;&lt;span style="color:#50fa7b">红色标签&lt;/span>&amp;#34; &amp;gt;}}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>这是一个 {{&amp;lt; &lt;span style="color:#ff79c6">tag&lt;/span> &lt;span style="color:#50fa7b">green&lt;/span> &amp;#34;&lt;span style="color:#50fa7b">绿色标签&lt;/span>&amp;#34; &amp;gt;}}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>这是一个 {{&amp;lt; &lt;span style="color:#ff79c6">tag&lt;/span> &lt;span style="color:#50fa7b">blue&lt;/span> &amp;#34;&lt;span style="color:#50fa7b">蓝色标签&lt;/span>&amp;#34; &amp;gt;}}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>这是一个 {{&amp;lt; &lt;span style="color:#ff79c6">tag&lt;/span> &lt;span style="color:#50fa7b">orange&lt;/span> &amp;#34;&lt;span style="color:#50fa7b">橘色标签&lt;/span>&amp;#34; &amp;gt;}}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>这是一个 {{&amp;lt; &lt;span style="color:#ff79c6">tag-outlined&lt;/span> &lt;span style="color:#50fa7b">theme&lt;/span> &amp;#34;&lt;span style="color:#50fa7b">主题色标签&lt;/span>&amp;#34; &amp;gt;}}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>这是一个 {{&amp;lt; &lt;span style="color:#ff79c6">tag-outlined&lt;/span> &lt;span style="color:#50fa7b">red&lt;/span> &amp;#34;&lt;span style="color:#50fa7b">红色标签&lt;/span>&amp;#34; &amp;gt;}}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>这是一个 {{&amp;lt; &lt;span style="color:#ff79c6">tag-outlined&lt;/span> &lt;span style="color:#50fa7b">green&lt;/span> &amp;#34;&lt;span style="color:#50fa7b">绿色标签&lt;/span>&amp;#34; &amp;gt;}}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>这是一个 {{&amp;lt; &lt;span style="color:#ff79c6">tag-outlined&lt;/span> &lt;span style="color:#50fa7b">blue&lt;/span> &amp;#34;&lt;span style="color:#50fa7b">蓝色标签&lt;/span>&amp;#34; &amp;gt;}}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>这是一个 {{&amp;lt; &lt;span style="color:#ff79c6">tag-outlined&lt;/span> &lt;span style="color:#50fa7b">orange&lt;/span> &amp;#34;&lt;span style="color:#50fa7b">橘色标签&lt;/span>&amp;#34; &amp;gt;}}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>这是一个 &lt;span class="bg-theme whitespace-nowrap rounded py-1 px-2 text-sm text-white">主题色标签&lt;/span>
+&lt;br>
+这是一个 &lt;span class="bg-red-500 whitespace-nowrap rounded py-1 px-2 text-sm text-white">红色标签&lt;/span>
+&lt;br>
+这是一个 &lt;span class="bg-green-500 whitespace-nowrap rounded py-1 px-2 text-sm text-white">绿色标签&lt;/span>
+&lt;br>
+这是一个 &lt;span class="bg-blue-500 whitespace-nowrap rounded py-1 px-2 text-sm text-white">蓝色标签&lt;/span>
+&lt;br>
+这是一个 &lt;span class="bg-orange-500 whitespace-nowrap rounded py-1 px-2 text-sm text-white">橘色标签&lt;/span>
+&lt;/p>
+&lt;p>这是一个 &lt;span class="bg-theme/10 text-theme whitespace-nowrap rounded py-1 px-2 text-sm">主题色标签&lt;/span>
+&lt;br>
+这是一个 &lt;span class="bg-red-500/10 text-red-500 whitespace-nowrap rounded py-1 px-2 text-sm">红色标签&lt;/span>
+&lt;br>
+这是一个 &lt;span class="bg-green-500/10 text-green-500 whitespace-nowrap rounded py-1 px-2 text-sm">绿色标签&lt;/span>
+&lt;br>
+这是一个 &lt;span class="bg-blue-500/10 text-blue-500 whitespace-nowrap rounded py-1 px-2 text-sm">蓝色标签&lt;/span>
+&lt;br>
+这是一个 &lt;span class="bg-orange-500/10 text-orange-500 whitespace-nowrap rounded py-1 px-2 text-sm">橘色标签&lt;/span>
+&lt;/p>
+&lt;h2 class="group " id="进度条"
+>进度条&lt;a href="#%e8%bf%9b%e5%ba%a6%e6%9d%a1"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-markdown" data-lang="markdown">&lt;span style="display:flex;">&lt;span>{{&amp;lt; &lt;span style="color:#ff79c6">progress&lt;/span> &lt;span style="color:#50fa7b">999&lt;/span>.&lt;span style="color:#50fa7b">99&lt;/span> &lt;span style="color:#50fa7b">theme&lt;/span> &amp;#34;&lt;span style="color:#50fa7b">进度条名称&lt;/span>&amp;#34; &amp;gt;}}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>{{&amp;lt; &lt;span style="color:#ff79c6">progress&lt;/span> &lt;span style="color:#50fa7b">80&lt;/span> &lt;span style="color:#50fa7b">green&lt;/span> &amp;#34;&lt;span style="color:#50fa7b">进度条名称&lt;/span>&amp;#34; &amp;gt;}}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>{{&amp;lt; &lt;span style="color:#ff79c6">progress&lt;/span> &lt;span style="color:#50fa7b">77&lt;/span>.&lt;span style="color:#50fa7b">54&lt;/span> &lt;span style="color:#50fa7b">red&lt;/span> &amp;#34;&lt;span style="color:#50fa7b">进度条名称&lt;/span>&amp;#34; &amp;gt;}}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>{{&amp;lt; &lt;span style="color:#ff79c6">progress&lt;/span> &lt;span style="color:#50fa7b">123&lt;/span>.&lt;span style="color:#50fa7b">45&lt;/span> &lt;span style="color:#50fa7b">blue&lt;/span> &amp;#34;&lt;span style="color:#50fa7b">进度条名称&lt;/span>&amp;#34; &amp;gt;}}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>{{&amp;lt; &lt;span style="color:#ff79c6">progress&lt;/span> &lt;span style="color:#50fa7b">11&lt;/span>.&lt;span style="color:#50fa7b">11&lt;/span> &lt;span style="color:#50fa7b">orange&lt;/span> &amp;#34;&lt;span style="color:#50fa7b">进度条名称&lt;/span>&amp;#34; &amp;gt;}}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;div class="my-4">
+&lt;div class="flex justify-between">
+&lt;div>进度条名称&lt;/div>
+&lt;div>999.99%&lt;/div>
+&lt;/div>
+&lt;div class="relative w-full overflow-hidden rounded-full bg-gray-200 dark:bg-gray-300">
+&lt;div class="bg-theme h-2" style="width:999.99%;">&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;div class="my-4">
+&lt;div class="flex justify-between">
+&lt;div>进度条名称&lt;/div>
+&lt;div>80%&lt;/div>
+&lt;/div>
+&lt;div class="relative w-full overflow-hidden rounded-full bg-gray-200 dark:bg-gray-300">
+&lt;div class="bg-green-400 h-2" style="width:80%;">&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;div class="my-4">
+&lt;div class="flex justify-between">
+&lt;div>进度条名称&lt;/div>
+&lt;div>77.54%&lt;/div>
+&lt;/div>
+&lt;div class="relative w-full overflow-hidden rounded-full bg-gray-200 dark:bg-gray-300">
+&lt;div class="bg-red-400 h-2" style="width:77.54%;">&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;div class="my-4">
+&lt;div class="flex justify-between">
+&lt;div>进度条名称&lt;/div>
+&lt;div>123.45%&lt;/div>
+&lt;/div>
+&lt;div class="relative w-full overflow-hidden rounded-full bg-gray-200 dark:bg-gray-300">
+&lt;div class="bg-blue-400 h-2" style="width:123.45%;">&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;div class="my-4">
+&lt;div class="flex justify-between">
+&lt;div>进度条名称&lt;/div>
+&lt;div>11.11%&lt;/div>
+&lt;/div>
+&lt;div class="relative w-full overflow-hidden rounded-full bg-gray-200 dark:bg-gray-300">
+&lt;div class="bg-orange-400 h-2" style="width:11.11%;">&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;/p>
+&lt;h2 class="group " id="折叠面板"
+>折叠面板&lt;a href="#%e6%8a%98%e5%8f%a0%e9%9d%a2%e6%9d%bf"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-markdown" data-lang="markdown">&lt;span style="display:flex;">&lt;span>{{&amp;lt; &lt;span style="color:#ff79c6">accordion&lt;/span> &amp;#34;&lt;span style="color:#50fa7b">折叠面板&lt;/span>&amp;#34; &lt;span style="color:#50fa7b">open&lt;/span> &amp;gt;}}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">*&lt;/span> Vegetables
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">*&lt;/span> Fruits
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">*&lt;/span> Fish
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>{{&amp;lt; /&lt;span style="color:#ff79c6">accordion&lt;/span> &amp;gt;}}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;details class="accordion rounded border dark:border-darkBorder" open>
+&lt;summary class="flex items-center px-4 py-2 font-bold before:mr-0.5 before:-mt-0.5 before:text-xl before:text-gray-400">折叠面板&lt;/summary>
+&lt;div class="border-t px-4 py-2 dark:border-darkBorder">&lt;ul>
+&lt;li>Vegetables&lt;/li>
+&lt;li>Fruits&lt;/li>
+&lt;li>Fish&lt;/li>
+&lt;/ul>
+&lt;/div>
+&lt;/details>
+&lt;h2 class="group " id="分割线"
+>分割线&lt;a href="#%e5%88%86%e5%89%b2%e7%ba%bf"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-markdown" data-lang="markdown">&lt;span style="display:flex;">&lt;span>{{&amp;lt; &lt;span style="color:#ff79c6">hr&lt;/span> &amp;#34;&lt;span style="color:#50fa7b">分割线&lt;/span>&amp;#34; &amp;gt;}}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;fieldset class="my-16 border-t border-gray-300 dark:border-darkBorder">
+&lt;legend class="mx-auto my-0 px-2">分割线&lt;/legend>
+&lt;/fieldset>
+&lt;h2 class="group " id="隐藏文字"
+>隐藏文字&lt;a href="#%e9%9a%90%e8%97%8f%e6%96%87%e5%ad%97"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-markdown" data-lang="markdown">&lt;span style="display:flex;">&lt;span>这是一段 {{&amp;lt; &lt;span style="color:#ff79c6">hidden-text&lt;/span> &amp;#34;&lt;span style="color:#50fa7b">隐藏文字&lt;/span>&amp;#34; &lt;span style="color:#50fa7b">blur&lt;/span> &amp;gt;}}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>这是一段 {{&amp;lt; &lt;span style="color:#ff79c6">hidden-text&lt;/span> &amp;#34;&lt;span style="color:#50fa7b">隐藏文字&lt;/span>&amp;#34; &amp;gt;}}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>这是一段 &lt;span class="inline-block blur-sm filter transition ease-in-out hover:filter-none">隐藏文字&lt;/span>&lt;/p>
+&lt;p>这是一段 &lt;span
+class="relative inline-block leading-none after:pointer-events-none after:absolute after:left-0 after:top-0 after:z-50 after:block after:h-full after:w-full after:rounded after:bg-darkBg after:transition after:ease-in-out hover:after:bg-transparent dark:after:bg-darkText dark:hover:after:bg-transparent"
+>隐藏文字&lt;/span
+>&lt;/p>
+&lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">9
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-markdown" data-lang="markdown">&lt;span style="display:flex;">&lt;span>{{&amp;lt; &lt;span style="color:#ff79c6">hidden&lt;/span> &lt;span style="color:#50fa7b">blur&lt;/span> &amp;gt;}}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">&amp;gt; &lt;/span>&lt;span style="text-decoration:underline">这是一个隐藏块
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="text-decoration:underline">&lt;/span>{{&amp;lt; /&lt;span style="color:#ff79c6">hidden&lt;/span> &amp;gt;}}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>{{&amp;lt; &lt;span style="color:#ff79c6">hidden&lt;/span> &amp;gt;}}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">*&lt;/span> Vegetables
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">*&lt;/span> Fruits
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">*&lt;/span> Fish
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>{{&amp;lt; /&lt;span style="color:#ff79c6">hidden&lt;/span> &amp;gt;}}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="blur-sm filter transition ease-in-out hover:filter-none">&lt;blockquote>
+&lt;p>这是一个隐藏块&lt;/p>
+&lt;/blockquote>
+&lt;/div>
+&lt;div
+class="relative after:pointer-events-none after:absolute after:left-0 after:top-0 after:z-50 after:block after:h-full after:w-full after:rounded after:bg-darkBg after:transition after:ease-in-out hover:after:bg-transparent dark:after:bg-darkText dark:hover:after:bg-transparent"
+>&lt;ul>
+&lt;li>Vegetables&lt;/li>
+&lt;li>Fruits&lt;/li>
+&lt;li>Fish&lt;/li>
+&lt;/ul>
+&lt;/div>
+&lt;h2 class="group " id="评分"
+>评分&lt;a href="#%e8%af%84%e5%88%86"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-markdown" data-lang="markdown">&lt;span style="display:flex;">&lt;span>我对海鲜饭的评价 {{&amp;lt; &lt;span style="color:#ff79c6">rating&lt;/span> &lt;span style="color:#50fa7b">10&lt;/span> &lt;span style="color:#50fa7b">6&lt;/span>&amp;gt;}}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>我对海鲜饭的评价 &lt;span class="ml-1 inline-flex align-sub">&lt;i class="eva eva-star mr-1 text-theme">&lt;/i>&lt;i class="eva eva-star mr-1 text-theme">&lt;/i>&lt;i class="eva eva-star mr-1 text-theme">&lt;/i>&lt;i class="eva eva-star mr-1 text-theme">&lt;/i>&lt;i class="eva eva-star mr-1 text-theme">&lt;/i>&lt;i class="eva eva-star mr-1 text-theme">&lt;/i>&lt;i class="eva eva-star-outline mr-1 text-gray-400">&lt;/i>&lt;i class="eva eva-star-outline mr-1 text-gray-400">&lt;/i>&lt;i class="eva eva-star-outline mr-1 text-gray-400">&lt;/i>&lt;i class="eva eva-star-outline mr-1 text-gray-400">&lt;/i>&lt;/span>
+&lt;/p>
+&lt;h2 class="group " id="卡片链接"
+>卡片链接&lt;a href="#%e5%8d%a1%e7%89%87%e9%93%be%e6%8e%a5"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-markdown" data-lang="markdown">&lt;span style="display:flex;">&lt;span>{{&amp;lt; &lt;span style="color:#ff79c6">link-card&lt;/span> &lt;span style="color:#50fa7b">name&lt;/span>&lt;span style="color:#ff79c6">=&lt;/span>&lt;span style="color:#f1fa8c">&amp;#34;hugo-theme-luna&amp;#34;&lt;/span> &lt;span style="color:#50fa7b">desc&lt;/span>&lt;span style="color:#ff79c6">=&lt;/span>&lt;span style="color:#f1fa8c">&amp;#34;A simple, performance-first, SEO-friendly Hugo theme&amp;#34;&lt;/span> &lt;span style="color:#50fa7b">link&lt;/span>&lt;span style="color:#ff79c6">=&lt;/span>&lt;span style="color:#f1fa8c">&amp;#34;https://github.com/Ice-Hazymoon/hugo-theme-luna&amp;#34;&lt;/span> &lt;span style="color:#50fa7b">img&lt;/span>&lt;span style="color:#ff79c6">=&lt;/span>&lt;span style="color:#f1fa8c">&amp;#34;https://repository-images.githubusercontent.com/486781027/dc31a9ab-66d1-49b8-a225-4f85f2329f2e&amp;#34;&lt;/span> &amp;gt;}}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>{{&amp;lt; &lt;span style="color:#ff79c6">link-card&lt;/span> &lt;span style="color:#50fa7b">name&lt;/span>&lt;span style="color:#ff79c6">=&lt;/span>&lt;span style="color:#f1fa8c">&amp;#34;hugo-theme-luna&amp;#34;&lt;/span> &lt;span style="color:#50fa7b">desc&lt;/span>&lt;span style="color:#ff79c6">=&lt;/span>&lt;span style="color:#f1fa8c">&amp;#34;A simple, performance-first, SEO-friendly Hugo theme&amp;#34;&lt;/span> &lt;span style="color:#50fa7b">link&lt;/span>&lt;span style="color:#ff79c6">=&lt;/span>&lt;span style="color:#f1fa8c">&amp;#34;https://github.com/Ice-Hazymoon/hugo-theme-luna&amp;#34;&lt;/span> &amp;gt;}}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;a
+href="https://github.com/Ice-Hazymoon/hugo-theme-luna"
+target="_blank"
+rel="noopener noreferrer"
+class="no-icon my-4 flex w-full cursor-pointer flex-col-reverse justify-between rounded border transition ease-in-out after:hidden hover:bg-gray-100 dark:border-darkBorder hover:dark:bg-darkBg md:flex-row"
+>
+&lt;div class="flex flex-grow flex-col p-4">
+&lt;div class="flex-grow">
+&lt;div class="text-xl font-bold">hugo-theme-luna&lt;/div>&lt;div class="my-1 text-gray-400 line-clamp-2 dark:text-darkTextPlaceholder">A simple, performance-first, SEO-friendly Hugo theme&lt;/div>&lt;/div>&lt;div class="flex items-center">&lt;img class="link-card-img mr-1 h-3 w-3" src="https://www.google.cn/s2/favicons?domain=github.com" alt="" />
+&lt;div class="text-xs text-gray-400 line-clamp-1 dark:text-darkTextPlaceholder">https://github.com/Ice-Hazymoon/hugo-theme-luna&lt;/div>
+&lt;/div>&lt;/div>&lt;img class="link-card-img h-32 bg-white object-contain dark:bg-transparent" src="https://repository-images.githubusercontent.com/486781027/dc31a9ab-66d1-49b8-a225-4f85f2329f2e" alt="hugo-theme-luna" />&lt;/a>
+&lt;a
+href="https://github.com/Ice-Hazymoon/hugo-theme-luna"
+target="_blank"
+rel="noopener noreferrer"
+class="no-icon my-4 flex w-full cursor-pointer flex-col-reverse justify-between rounded border transition ease-in-out after:hidden hover:bg-gray-100 dark:border-darkBorder hover:dark:bg-darkBg md:flex-row"
+>
+&lt;div class="flex flex-grow flex-col p-4">
+&lt;div class="flex-grow">
+&lt;div class="text-xl font-bold">hugo-theme-luna&lt;/div>&lt;div class="my-1 text-gray-400 line-clamp-2 dark:text-darkTextPlaceholder">A simple, performance-first, SEO-friendly Hugo theme&lt;/div>&lt;/div>&lt;div class="flex items-center">&lt;img class="link-card-img mr-1 h-3 w-3" src="https://www.google.cn/s2/favicons?domain=github.com" alt="" />
+&lt;div class="text-xs text-gray-400 line-clamp-1 dark:text-darkTextPlaceholder">https://github.com/Ice-Hazymoon/hugo-theme-luna&lt;/div>
+&lt;/div>&lt;/div>&lt;/a>
+&lt;h2 class="group " id="轮播图"
+>轮播图&lt;a href="#%e8%bd%ae%e6%92%ad%e5%9b%be"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-markdown" data-lang="markdown">&lt;span style="display:flex;">&lt;span>{{&amp;lt; &lt;span style="color:#ff79c6">carousel&lt;/span> &amp;#34;&lt;span style="color:#50fa7b">https:&lt;/span>//&lt;span style="color:#50fa7b">unsplash&lt;/span>.&lt;span style="color:#50fa7b">it&lt;/span>/&lt;span style="color:#50fa7b">1920&lt;/span>/&lt;span style="color:#50fa7b">1080&lt;/span>/?&lt;span style="color:#50fa7b">random&lt;/span>&lt;span style="color:#ff79c6">=&lt;/span>&lt;span style="color:#f1fa8c">1&amp;#34;&lt;/span> &amp;#34;&lt;span style="color:#50fa7b">https:&lt;/span>//&lt;span style="color:#50fa7b">unsplash&lt;/span>.&lt;span style="color:#50fa7b">it&lt;/span>/&lt;span style="color:#50fa7b">1920&lt;/span>/&lt;span style="color:#50fa7b">1080&lt;/span>/?&lt;span style="color:#50fa7b">random&lt;/span>&lt;span style="color:#ff79c6">=&lt;/span>&lt;span style="color:#f1fa8c">2&amp;#34;&lt;/span> &amp;#34;&lt;span style="color:#50fa7b">https:&lt;/span>//&lt;span style="color:#50fa7b">unsplash&lt;/span>.&lt;span style="color:#50fa7b">it&lt;/span>/&lt;span style="color:#50fa7b">1920&lt;/span>/&lt;span style="color:#50fa7b">1080&lt;/span>/?&lt;span style="color:#50fa7b">random&lt;/span>&lt;span style="color:#ff79c6">=&lt;/span>&lt;span style="color:#f1fa8c">3&amp;#34;&lt;/span> &amp;#34;&lt;span style="color:#50fa7b">https:&lt;/span>//&lt;span style="color:#50fa7b">unsplash&lt;/span>.&lt;span style="color:#50fa7b">it&lt;/span>/&lt;span style="color:#50fa7b">1920&lt;/span>/&lt;span style="color:#50fa7b">1080&lt;/span>/?&lt;span style="color:#50fa7b">random&lt;/span>&lt;span style="color:#ff79c6">=&lt;/span>&lt;span style="color:#f1fa8c">4&amp;#34;&lt;/span> &amp;gt;}}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>{{&amp;lt; &lt;span style="color:#ff79c6">carousel&lt;/span> &amp;#34;&lt;span style="color:#50fa7b">4&lt;/span>.&lt;span style="color:#50fa7b">jpg&lt;/span>&amp;#34; &amp;#34;&lt;span style="color:#50fa7b">7&lt;/span>.&lt;span style="color:#50fa7b">jpg&lt;/span>&amp;#34; &amp;#34;&lt;span style="color:#50fa7b">9&lt;/span>.&lt;span style="color:#50fa7b">jpg&lt;/span>&amp;#34; &amp;gt;}}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="carousel">
+&lt;div class="slider-wrapper">&lt;input id="slide-249187653-0"checked="checked"name="slide-249187653-slides" type="radio" />&lt;input id="slide-249187653-1"name="slide-249187653-slides" type="radio" />&lt;input id="slide-249187653-2"name="slide-249187653-slides" type="radio" />&lt;input id="slide-249187653-3"name="slide-249187653-slides" type="radio" />&lt;div class="slider-arrow-nav">&lt;label class="nav-arrow prev" for="slide-249187653-0">&lt;/label>&lt;label class="nav-arrow prev" for="slide-249187653-1">&lt;/label>&lt;label class="nav-arrow prev" for="slide-249187653-2">&lt;/label>&lt;label class="nav-arrow prev" for="slide-249187653-3">&lt;/label>&lt;/div>
+&lt;div class="slider-arrow-nav">&lt;label class="nav-arrow next" for="slide-249187653-0">&lt;/label>&lt;label class="nav-arrow next" for="slide-249187653-1">&lt;/label>&lt;label class="nav-arrow next" for="slide-249187653-2">&lt;/label>&lt;label class="nav-arrow next" for="slide-249187653-3">&lt;/label>&lt;/div>
+&lt;div class="slider-nav">&lt;label class="nav-button" for="slide-249187653-0">&lt;/label>&lt;label class="nav-button" for="slide-249187653-1">&lt;/label>&lt;label class="nav-button" for="slide-249187653-2">&lt;/label>&lt;label class="nav-button" for="slide-249187653-3">&lt;/label>&lt;/div>
+&lt;div class="slider-content">&lt;div class="slide slide-249187653-0">
+&lt;img src="https://unsplash.it/1920/1080/?random=1" />
+&lt;img src="https://unsplash.it/1920/1080/?random=1" alt="" />
+&lt;/div>&lt;div class="slide slide-249187653-1">
+&lt;img src="https://unsplash.it/1920/1080/?random=2" />
+&lt;img src="https://unsplash.it/1920/1080/?random=2" alt="" />
+&lt;/div>&lt;div class="slide slide-249187653-2">
+&lt;img src="https://unsplash.it/1920/1080/?random=3" />
+&lt;img src="https://unsplash.it/1920/1080/?random=3" alt="" />
+&lt;/div>&lt;div class="slide slide-249187653-3">
+&lt;img src="https://unsplash.it/1920/1080/?random=4" />
+&lt;img src="https://unsplash.it/1920/1080/?random=4" alt="" />
+&lt;/div>&lt;/div>
+&lt;/div>
+&lt;style>#slide-249187653-0:checked ~ .slider-content .slide-249187653-0{
+opacity:1;
+}
+#slide-249187653-0:checked ~ .slider-nav .nav-button[for="slide-249187653-0"]{
+background: rgba(255,255,255,1);
+}
+#slide-249187653-0:checked ~ .slider-arrow-nav .nav-arrow.next[for="slide-249187653-0"] + .nav-arrow{
+z-index:4;
+}
+#slide-249187653-0:checked ~ .slider-arrow-nav .nav-arrow.next[for="slide-249187653-0"]:last-of-type{
+z-index:2;
+}
+#slide-249187653-0:checked ~ .slider-arrow-nav .nav-arrow.prev[for="slide-249187653-0"],
+#slide-249187653-0:checked ~ .slider-arrow-nav .nav-arrow.prev[for="slide-249187653-0"] ~ .nav-arrow.prev{
+z-index:2;
+}#slide-249187653-1:checked ~ .slider-content .slide-249187653-1{
+opacity:1;
+}
+#slide-249187653-1:checked ~ .slider-nav .nav-button[for="slide-249187653-1"]{
+background: rgba(255,255,255,1);
+}
+#slide-249187653-1:checked ~ .slider-arrow-nav .nav-arrow.next[for="slide-249187653-1"] + .nav-arrow{
+z-index:4;
+}
+#slide-249187653-1:checked ~ .slider-arrow-nav .nav-arrow.next[for="slide-249187653-1"]:last-of-type{
+z-index:2;
+}
+#slide-249187653-1:checked ~ .slider-arrow-nav .nav-arrow.prev[for="slide-249187653-1"],
+#slide-249187653-1:checked ~ .slider-arrow-nav .nav-arrow.prev[for="slide-249187653-1"] ~ .nav-arrow.prev{
+z-index:2;
+}#slide-249187653-2:checked ~ .slider-content .slide-249187653-2{
+opacity:1;
+}
+#slide-249187653-2:checked ~ .slider-nav .nav-button[for="slide-249187653-2"]{
+background: rgba(255,255,255,1);
+}
+#slide-249187653-2:checked ~ .slider-arrow-nav .nav-arrow.next[for="slide-249187653-2"] + .nav-arrow{
+z-index:4;
+}
+#slide-249187653-2:checked ~ .slider-arrow-nav .nav-arrow.next[for="slide-249187653-2"]:last-of-type{
+z-index:2;
+}
+#slide-249187653-2:checked ~ .slider-arrow-nav .nav-arrow.prev[for="slide-249187653-2"],
+#slide-249187653-2:checked ~ .slider-arrow-nav .nav-arrow.prev[for="slide-249187653-2"] ~ .nav-arrow.prev{
+z-index:2;
+}#slide-249187653-3:checked ~ .slider-content .slide-249187653-3{
+opacity:1;
+}
+#slide-249187653-3:checked ~ .slider-nav .nav-button[for="slide-249187653-3"]{
+background: rgba(255,255,255,1);
+}
+#slide-249187653-3:checked ~ .slider-arrow-nav .nav-arrow.next[for="slide-249187653-3"] + .nav-arrow{
+z-index:4;
+}
+#slide-249187653-3:checked ~ .slider-arrow-nav .nav-arrow.next[for="slide-249187653-3"]:last-of-type{
+z-index:2;
+}
+#slide-249187653-3:checked ~ .slider-arrow-nav .nav-arrow.prev[for="slide-249187653-3"],
+#slide-249187653-3:checked ~ .slider-arrow-nav .nav-arrow.prev[for="slide-249187653-3"] ~ .nav-arrow.prev{
+z-index:2;
+}&lt;/style>
+&lt;/div>
+&lt;div class="carousel">
+&lt;div class="slider-wrapper">&lt;input id="slide-658273419-0"checked="checked"name="slide-658273419-slides" type="radio" />&lt;input id="slide-658273419-1"name="slide-658273419-slides" type="radio" />&lt;input id="slide-658273419-2"name="slide-658273419-slides" type="radio" />&lt;div class="slider-arrow-nav">&lt;label class="nav-arrow prev" for="slide-658273419-0">&lt;/label>&lt;label class="nav-arrow prev" for="slide-658273419-1">&lt;/label>&lt;label class="nav-arrow prev" for="slide-658273419-2">&lt;/label>&lt;/div>
+&lt;div class="slider-arrow-nav">&lt;label class="nav-arrow next" for="slide-658273419-0">&lt;/label>&lt;label class="nav-arrow next" for="slide-658273419-1">&lt;/label>&lt;label class="nav-arrow next" for="slide-658273419-2">&lt;/label>&lt;/div>
+&lt;div class="slider-nav">&lt;label class="nav-button" for="slide-658273419-0">&lt;/label>&lt;label class="nav-button" for="slide-658273419-1">&lt;/label>&lt;label class="nav-button" for="slide-658273419-2">&lt;/label>&lt;/div>
+&lt;div class="slider-content">&lt;div class="slide slide-658273419-0">
+&lt;img src="1.jpg" />
+&lt;img src="1.jpg" alt="" />
+&lt;/div>&lt;div class="slide slide-658273419-1">
+&lt;img src="2.jpg" />
+&lt;img src="2.jpg" alt="" />
+&lt;/div>&lt;div class="slide slide-658273419-2">
+&lt;img src="3.jpg" />
+&lt;img src="3.jpg" alt="" />
+&lt;/div>&lt;/div>
+&lt;/div>
+&lt;style>#slide-658273419-0:checked ~ .slider-content .slide-658273419-0{
+opacity:1;
+}
+#slide-658273419-0:checked ~ .slider-nav .nav-button[for="slide-658273419-0"]{
+background: rgba(255,255,255,1);
+}
+#slide-658273419-0:checked ~ .slider-arrow-nav .nav-arrow.next[for="slide-658273419-0"] + .nav-arrow{
+z-index:4;
+}
+#slide-658273419-0:checked ~ .slider-arrow-nav .nav-arrow.next[for="slide-658273419-0"]:last-of-type{
+z-index:2;
+}
+#slide-658273419-0:checked ~ .slider-arrow-nav .nav-arrow.prev[for="slide-658273419-0"],
+#slide-658273419-0:checked ~ .slider-arrow-nav .nav-arrow.prev[for="slide-658273419-0"] ~ .nav-arrow.prev{
+z-index:2;
+}#slide-658273419-1:checked ~ .slider-content .slide-658273419-1{
+opacity:1;
+}
+#slide-658273419-1:checked ~ .slider-nav .nav-button[for="slide-658273419-1"]{
+background: rgba(255,255,255,1);
+}
+#slide-658273419-1:checked ~ .slider-arrow-nav .nav-arrow.next[for="slide-658273419-1"] + .nav-arrow{
+z-index:4;
+}
+#slide-658273419-1:checked ~ .slider-arrow-nav .nav-arrow.next[for="slide-658273419-1"]:last-of-type{
+z-index:2;
+}
+#slide-658273419-1:checked ~ .slider-arrow-nav .nav-arrow.prev[for="slide-658273419-1"],
+#slide-658273419-1:checked ~ .slider-arrow-nav .nav-arrow.prev[for="slide-658273419-1"] ~ .nav-arrow.prev{
+z-index:2;
+}#slide-658273419-2:checked ~ .slider-content .slide-658273419-2{
+opacity:1;
+}
+#slide-658273419-2:checked ~ .slider-nav .nav-button[for="slide-658273419-2"]{
+background: rgba(255,255,255,1);
+}
+#slide-658273419-2:checked ~ .slider-arrow-nav .nav-arrow.next[for="slide-658273419-2"] + .nav-arrow{
+z-index:4;
+}
+#slide-658273419-2:checked ~ .slider-arrow-nav .nav-arrow.next[for="slide-658273419-2"]:last-of-type{
+z-index:2;
+}
+#slide-658273419-2:checked ~ .slider-arrow-nav .nav-arrow.prev[for="slide-658273419-2"],
+#slide-658273419-2:checked ~ .slider-arrow-nav .nav-arrow.prev[for="slide-658273419-2"] ~ .nav-arrow.prev{
+z-index:2;
+}&lt;/style>
+&lt;/div>
+&lt;h2 class="group " id="时间轴"
+>时间轴&lt;a href="#%e6%97%b6%e9%97%b4%e8%bd%b4"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-markdown" data-lang="markdown">&lt;span style="display:flex;">&lt;span>{{&amp;lt; &lt;span style="color:#ff79c6">timeline&lt;/span> &amp;#34;&lt;span style="color:#50fa7b">2018年01月01日&lt;/span> &lt;span style="color:#50fa7b">今天吃泡面今天吃泡面今天吃泡面今天吃泡面今天吃泡面今天吃泡面今天吃泡面今天吃泡面今天吃泡面今天吃泡面今天吃泡面今天吃泡面今天吃泡面今天吃泡面&lt;/span>&amp;#34; &amp;#34;&lt;span style="color:#50fa7b">2018年01月02日&lt;/span> &lt;span style="color:#50fa7b">今天吃火锅&lt;/span>&amp;#34; &amp;#34;&lt;span style="color:#50fa7b">2018年01月03日&lt;/span> &lt;span style="color:#50fa7b">今天吃麻辣烫&lt;/span>&amp;#34; &amp;gt;}}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="timeline my-4">&lt;div class="timeline-item">
+&lt;span>2018年01月01日 今天吃泡面今天吃泡面今天吃泡面今天吃泡面今天吃泡面今天吃泡面今天吃泡面今天吃泡面今天吃泡面今天吃泡面今天吃泡面今天吃泡面今天吃泡面今天吃泡面&lt;/span>
+&lt;/div>&lt;div class="timeline-item">
+&lt;span>2018年01月02日 今天吃火锅&lt;/span>
+&lt;/div>&lt;div class="timeline-item">
+&lt;span>2018年01月03日 今天吃麻辣烫&lt;/span>
+&lt;/div>&lt;/div>
+&lt;h2 class="group " id="画廊排版"
+>画廊排版&lt;a href="#%e7%94%bb%e5%bb%8a%e6%8e%92%e7%89%88"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">9
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-markdown" data-lang="markdown">&lt;span style="display:flex;">&lt;span>{{&amp;lt; &lt;span style="color:#ff79c6">gallery&lt;/span> &amp;gt;}}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>![](1.jpg)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>![](2.jpg)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>![](3.jpg)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>![](2.jpg)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>![](3.jpg)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>![](1.jpg)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>{{&amp;lt; /&lt;span style="color:#ff79c6">gallery&lt;/span> &amp;gt;}}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="gallery-box">
+&lt;p>
+&lt;/p>
+&lt;p>
+&lt;/p>
+&lt;/div>
+&lt;h2 class="group " id="选项卡"
+>选项卡&lt;a href="#%e9%80%89%e9%a1%b9%e5%8d%a1"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;div class="highlight">&lt;div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+&lt;/span>&lt;span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-markdown" data-lang="markdown">&lt;span style="display:flex;">&lt;span>{{&amp;lt; &lt;span style="color:#ff79c6">tab-view&lt;/span> &amp;gt;}}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>{{&amp;lt; &lt;span style="color:#ff79c6">tab-panel&lt;/span> &lt;span style="color:#50fa7b">name&lt;/span>&lt;span style="color:#ff79c6">=&lt;/span>&lt;span style="color:#f1fa8c">&amp;#34;中文&amp;#34;&lt;/span> &lt;span style="color:#50fa7b">checked&lt;/span>&lt;span style="color:#ff79c6">=&lt;/span>&lt;span style="color:#f1fa8c">true&lt;/span> &amp;gt;}}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>百合花（学名：Lilium）通称百合花，是百合目百合科的一属，为多年生草本球根植物，属内物种繁多，经常作为观赏植物。主要分布在亚洲东部、欧洲、北美洲等北半球温带地区，全球已发现有至少96个品种，其中5种产于台湾。近年更有不少经过人工杂交而产生的新品种，如OT百合、东方型百合、玫瑰百合等。百合属对猫来说有剧毒。
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>{{&amp;lt; /&lt;span style="color:#ff79c6">tab-panel&lt;/span> &amp;gt;}}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>{{&amp;lt; &lt;span style="color:#ff79c6">tab-panel&lt;/span> &lt;span style="color:#50fa7b">name&lt;/span>&lt;span style="color:#ff79c6">=&lt;/span>&lt;span style="color:#f1fa8c">&amp;#34;English&amp;#34;&lt;/span> &amp;gt;}}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Lilium is a genus of herbaceous flowering plants growing from bulbs, all with large prominent flowers. They are the true lilies. Lilies are a group of flowering plants which are important in culture and literature in much of the world. Most species are native to the northern hemisphere and their range is temperate climates and extends into the subtropics. Many other plants have &amp;#34;lily&amp;#34; in their common names, but do not belong to the same genus and are therefore not true lilies.
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>{{&amp;lt; /&lt;span style="color:#ff79c6">tab-panel&lt;/span> &amp;gt;}}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>{{&amp;lt; &lt;span style="color:#ff79c6">tab-panel&lt;/span> &lt;span style="color:#50fa7b">name&lt;/span>&lt;span style="color:#ff79c6">=&lt;/span>&lt;span style="color:#f1fa8c">&amp;#34;Español&amp;#34;&lt;/span> &amp;gt;}}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Las especies de Lilium, comúnmente llamadas azucenas o lirios, constituyen un género con alrededor de 110 integrantes que se incluye dentro de la familia de las liliáceas. Los lirios son herbáceas perennes de tallos erectos con numerosas hojas alternas, lineares a lance balas. Crecen a partir de bulbos formados por capas de escamas carnosas sin túnica.
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>{{&amp;lt; /&lt;span style="color:#ff79c6">tab-panel&lt;/span> &amp;gt;}}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>{{&amp;lt; /&lt;span style="color:#ff79c6">tab-view&lt;/span> &amp;gt;}}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="tabs my-4 flex flex-wrap">
+&lt;input type="radio" name="tabs" id="tab-965428137-"checked="checked"/>
+&lt;label class="order-1 block cursor-pointer px-4 py-2 font-bold" for="tab-965428137-">中文&lt;/label>
+&lt;div class="tab order-last hidden w-full grow border-t border-gray-200 p-4 dark:border-gray-600">百合花（学名：Lilium）通称百合花，是百合目百合科的一属，为多年生草本球根植物，属内物种繁多，经常作为观赏植物。主要分布在亚洲东部、欧洲、北美洲等北半球温带地区，全球已发现有至少96个品种，其中5种产于台湾。近年更有不少经过人工杂交而产生的新品种，如OT百合、东方型百合、玫瑰百合等。百合属对猫来说有剧毒。&lt;/div>
+&lt;input type="radio" name="tabs" id="tab-891547362-"/>
+&lt;label class="order-1 block cursor-pointer px-4 py-2 font-bold" for="tab-891547362-">English&lt;/label>
+&lt;div class="tab order-last hidden w-full grow border-t border-gray-200 p-4 dark:border-gray-600">Lilium is a genus of herbaceous flowering plants growing from bulbs, all with large prominent flowers. They are the true lilies. Lilies are a group of flowering plants which are important in culture and literature in much of the world. Most species are native to the northern hemisphere and their range is temperate climates and extends into the subtropics. Many other plants have &amp;ldquo;lily&amp;rdquo; in their common names, but do not belong to the same genus and are therefore not true lilies.&lt;/div>
+&lt;input type="radio" name="tabs" id="tab-158632794-"/>
+&lt;label class="order-1 block cursor-pointer px-4 py-2 font-bold" for="tab-158632794-">Español&lt;/label>
+&lt;div class="tab order-last hidden w-full grow border-t border-gray-200 p-4 dark:border-gray-600">Las especies de Lilium, comúnmente llamadas azucenas o lirios, constituyen un género con alrededor de 110 integrantes que se incluye dentro de la familia de las liliáceas. Los lirios son herbáceas perennes de tallos erectos con numerosas hojas alternas, lineares a lance balas. Crecen a partir de bulbos formados por capas de escamas carnosas sin túnica.&lt;/div>
+&lt;/div></description></item><item><title>网站在WeChat/QQ引导浏览器打开</title><link>https://nai.si/2022/12/20/%E7%BD%91%E7%AB%99%E5%9C%A8wechat/qq%E5%BC%95%E5%AF%BC%E6%B5%8F%E8%A7%88%E5%99%A8%E6%89%93%E5%BC%80.html/</link><pubDate>Tue, 20 Dec 2022 14:27:39 +0000</pubDate><guid>https://nai.si/2022/12/20/%E7%BD%91%E7%AB%99%E5%9C%A8wechat/qq%E5%BC%95%E5%AF%BC%E6%B5%8F%E8%A7%88%E5%99%A8%E6%89%93%E5%BC%80.html/</guid><description>
+&lt;h2 class="group " id="toc-0"
+>使用说明&lt;a href="#toc-0"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;p>1，上传zip文件到根目录。解压得到：WxqqJump&lt;/p>
+&lt;p>2，修改根目录里的index.php文件，在第一行 &amp;lt;?php 下面新增一行：&lt;/p>
+&lt;pre class="wp-block-code">&lt;code class="prettyprint" >require_once(&amp;#039;WxqqJump/WxqqJump.php&amp;#039;);&lt;/code>&lt;/pre>
+&lt;p>当不再使用或者需要临时关闭跳转时，只需注释掉该行代码即可。&lt;/p>
+&lt;p>说明：本教程仅适用于php类型网站&lt;/p>
+&lt;div class="wp-block-file">
+&lt;a id="wp-block-file--media-b13957c7-e796-45e8-9533-528281b83b5c" href="https://m0rml1n.oss-cn-shanghai.aliyuncs.com/wp-content/uploads/2022/12/ab6abf83f95dd4d21345cf58f4c35b66.zip" target="_blank" rel="noreferrer noopener">下载地址&lt;/a>&lt;a href="https://m0rml1n.oss-cn-shanghai.aliyuncs.com/wp-content/uploads/2022/12/ab6abf83f95dd4d21345cf58f4c35b66.zip" class="wp-block-file__button wp-element-button" download aria-describedby="wp-block-file--media-b13957c7-e796-45e8-9533-528281b83b5c">&lt;/a>
+&lt;/div></description></item><item><title>如何解决Chrome浏览器无法网页翻译？</title><link>https://nai.si/2022/10/16/%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3chrome%E6%B5%8F%E8%A7%88%E5%99%A8%E6%97%A0%E6%B3%95%E7%BD%91%E9%A1%B5%E7%BF%BB%E8%AF%91.html/</link><pubDate>Sun, 16 Oct 2022 13:25:13 +0000</pubDate><guid>https://nai.si/2022/10/16/%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3chrome%E6%B5%8F%E8%A7%88%E5%99%A8%E6%97%A0%E6%B3%95%E7%BD%91%E9%A1%B5%E7%BF%BB%E8%AF%91.html/</guid><description>&lt;p>今天我们就来探讨一下Google Chrome 浏览器无法进行网页翻译的解决方法&lt;/p>
+&lt;p>我是最近发现这个问题的，最开始还以为是个例。结果看了新闻才知道。&lt;/p>
+&lt;p>原来谷歌觉得国内翻译功能用的人少，给停了！大爷的！&lt;/p>
+&lt;p>以后估计也不支持了，那我们用chrome浏览器的英文又不好的怎么学习进步？&lt;/p>
+&lt;p>今天分享一个方法改本机host文件本地解析国内的谷歌服务器IP用于谷歌翻译！&lt;/p>
+&lt;h2 class="group " id="toc-0"
+>到系统中找&lt;strong>hosts&lt;/strong>文件&lt;a href="#toc-0"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;p>Windows 文件位置：&lt;/p>
+&lt;p>**C:\Windows\System32\drivers\etc**&lt;/p>
+&lt;h2 class="group " id="toc-1"
+>添加解析记录&lt;a href="#toc-1"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;p>用记事本打开&lt;strong>hosts文件&lt;/strong>&lt;/p>
+&lt;p>文件中最下面追加一行自定义解析记录&lt;/p>
+&lt;p>&lt;strong>220.181.174.226 translate.googleapis.com&lt;/strong>&lt;/p>
+&lt;p>以后遇到这个域名就用本地host文件中的域名解析&lt;/p>
+&lt;h2 class="group " id="toc-2"
+>获取本地的IP地址&lt;a href="#toc-2"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;p>前面的是IP，最好你自己本地用CMD获取&lt;/p>
+&lt;p>CMD中输入以下命令&lt;strong>ping google.cn&lt;/strong>&lt;/p>
+&lt;p>获取当前IP， 进行使用&lt;/p>
+&lt;p>配置完成后保存，你的谷歌浏览器就能网页翻译了！&lt;/p>
+&lt;p>当然还有一种方法就是开全局代理，代理浏览器，那样浏览器自然能使用国外的谷歌翻译服务。但这样太极端了，不开代理用不了了。所以还是推荐使用修改本地host方案！&lt;/p></description></item><item><title>typecho迁移至wordpress</title><link>https://nai.si/2022/05/01/typecho%E8%BF%81%E7%A7%BB%E8%87%B3wordpress.html/</link><pubDate>Sun, 01 May 2022 06:10:35 +0000</pubDate><guid>https://nai.si/2022/05/01/typecho%E8%BF%81%E7%A7%BB%E8%87%B3wordpress.html/</guid><description>
+&lt;h2 class="group " id="toc-0"
+>前言&lt;a href="#toc-0"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;p>正如标题中所说的，本站所使用的博客平台已经在5月1日由typecho迁移到了wordpress，经过不断的调试，一开始暴露出的小问题基本上都得到了解决，因此开贴记录一下下~&lt;/p>
+&lt;h2 class="group " id="toc-1"
+>迁移原因&lt;a href="#toc-1"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;p>先来说说原因吧。typecho经过这么多年的发展，基本的写文章的功能基本上实现的比较完整了，用markdown写起文章来非常顺心顺手。但是很多细节还是稍有缺失，有的功能还不是很完善，整体看起来还是稍微有些简陋。比如，对memcached/redis并没有官方支持，第三方插件则有各种各样的小bug，每次有评论都得手动刷新等等；邮件通知插件就没有一个能成功发信的（当然可能是我设置有问题）等等&amp;hellip;&amp;hellip;&lt;/p>
+&lt;p>再加上之前的主题使用有一定时间了（大概一年半），虽然也不是很难看，老版质感设计也很漂亮，但那套主题的一些底层实现有些老旧了，比如使用的是bootstrap3，以及设计的时候没有使用css变量，导致夜间模式这个功能很难加上。好不容易实现了Pjax和灯箱，夜间模式这个大坑我实在是填不上了QAQ&amp;hellip;&lt;/p>
+&lt;p>于是心想，干脆换成wordpress吧！看看wordpress有什么变化。上次使用wordpress是6年前了，给一个初中同学做的一个恶搞网站，搭建在一个免费空间上，慢慢的回忆呀！现在早就没了。&lt;/p>
+&lt;h2 class="group " id="toc-2"
+>主题&lt;a href="#toc-2"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;p>wordpress这边我很快就找到了合适的主题：&lt;a
+class="link"
+href="https://github.com/Tokinx/Wing/tree/preview"target="_blank" rel="noopener">Wing主题&lt;/a
+>
+ 。这个主题中可以看到质感设计的影子，Pjax，夜间模式，平滑滚动，一眼就看中这个主题了~&lt;/p>
+&lt;h2 class="group " id="toc-3"
+>Typecho To WordPress&lt;a href="#toc-3"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;p>经过多方查找，终于找到了一个实现的很好的宝藏插件——ByeTyp。官方的文档说明非常简洁，操作非常简单，下面就是官方的教程（从官网粘的quq）最下面我也会附上官方发布页的链接~&lt;/p>
+&lt;h3 class="group " id="toc-4"
+>安装方法&lt;a href="#toc-4"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h3>
+&lt;p>访问**&lt;a
+class="link"
+href="https://github.com/sunxiyuan/ByeTyp"target="_blank" rel="noopener">ByeTyp&lt;/a
+>
+**项目主页：&lt;a
+class="link"
+href="https://github.com/ibadboy-net/ByeTyp"target="_blank" rel="noopener">&lt;strong>https://github.com/ibadboy-net/ByeTyp&lt;/strong>&lt;/a
+>
+ 下载最新版的插件。下载后将插件上传并安装到Typecho上。注意上传的时候要为插件的文件夹命名为ByeTyp，否则插件将无法正常运行。&lt;/p>
+&lt;h3 class="group " id="toc-5"
+>使用方法&lt;a href="#toc-5"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h3>
+&lt;p>启用插件后，按照以下顺序操作，导出当前Typecho的数据。&lt;/p>
+&lt;p>控制台-&amp;gt;数据导出-&amp;gt;导出XML文件&lt;/p>
+&lt;p>当你拿到了后缀为.xml文件的时候你就离成功近了一大步了。接下来你需要将xml文件导入到WordPress中。按照这个顺序操作：&lt;/p>
+&lt;p>工具-&amp;gt;导入-&amp;gt;WordPress-&amp;gt;运行导入器（未安装的话就先安装）-&amp;gt;选择文件-&amp;gt;上传并导入-&amp;gt;选择导入的文章所属的用户，之后提示是否导入媒体，随便点就行（Xiaomage注：我这里没点，可以不用点上）&lt;/p>
+&lt;p>之后你就会看到你在Typecho上的文章、分类目录、标签、评论等数据都出现在了WordPress上，但是别急着高兴，因为我们还没能将附件也导入过来。&lt;/p>
+&lt;h3 class="group " id="toc-6"
+>迁移附件&lt;a href="#toc-6"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h3>
+&lt;p>将Typecho站点中的/usr/uploads目录迁移到WordPress的/wp-content目录下。之后在数据库中替换图片资源路径，执行以下SQL语句：&lt;/p>
+&lt;p>UPDATE wp_posts SET post_content = REPLACE( post_content, &amp;lsquo;/usr/uploads/&amp;rsquo;, &amp;lsquo;/wp-content/uploads/&amp;rsquo;);&lt;/p>
+&lt;p>至此，大部分数据就从Typecho迁移到Wordpress咯！&lt;/p>
+&lt;h2 class="group " id="toc-7"
+>手动迁移其他数据&lt;a href="#toc-7"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;p>但上面提到的插件貌似不能转移全部数据，比如评论区的UserAgent字段就不能被转移，主题自带的评论UA显示功能就无法正常显示之前的评论的UA。我尝试在ByeTyp插件中合适的地方加入导出UserAgent字段的代码(在276行后添加一行，代码为&lt;code class="prettyprint" >&amp;lt;wp:comment_agent&amp;gt;{$c['agent']}&amp;lt;/wp:comment_agent&amp;gt;&lt;/code>)，生成的XML文件中也有UserAgent字段，但导入XML之后这个字段&amp;hellip;在数据库中仍然是空的&amp;hellip;那咱就手动导入吧！&lt;/p>
+&lt;ol>
+&lt;li>先将原typecho数据库中的&lt;code class="prettyprint" >typecho_comments&lt;/code>表导入到wordpress数据库中。这一步应该不难吧~直接phpmyadmin中导出再导入就OK啦。其他数据库管理软件也很容易做到。&lt;/li>
+&lt;li>编辑wordpress数据库中wp_comments表的属性，把comment_agent的length加大一些，否则可能varchar的长度会不够用。&lt;/li>
+&lt;li>（可选）统一数据库中的排序规则。我自己一般常用utf8-mb4排序规则，但word press使用的是utf8mb4_unicode_520_ci，需要转换一下。这一步在phpmyadmin中先选择wordpress数据库，再选择操作选项卡，排序规则中选择&lt;code class="prettyprint" >utf8mb4_unicode_520_ci&lt;/code>，勾上“更改所有表排序规则”“更改所有表列的排序规则”两个对勾确定就OK啦！&lt;/li>
+&lt;li>上面那一步进行之后，可能会报错“1067 – Invalid default value for &amp;lsquo;comment_date&amp;rsquo;” 这时可以执行SQL语句&lt;/li>
+&lt;/ol>
+&lt;pre class="wp-block-preformatted">show variables like 'sql_mode' ;&lt;/pre>
+&lt;p>如果结果中含有“NO_ZERO_IN_DATE”,“NO_ZERO_DATE”，则说明当前数据库配置不允许日期为0的数据插入。然而wordpress中默认的comment_date就是0，这就与数据库配置冲突了。可以用下面的SQL语句来解决，改变数据库配置：&lt;/p>
+&lt;pre class="wp-block-preformatted">set global sql_mode = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';&lt;/pre>
+&lt;p>最后，执行SQL语句，将typecho中的UA导入到Wordpress中：&lt;/p>
+&lt;pre class="wp-block-preformatted">UPDATE wp_comments,typecho_comments SET wp_comments.comment_agent = typecho_comments.agent WHERE wp_comments.comment_content = typecho_comments.text&lt;/pre>
+&lt;p>语句运行完，就大功告成啦！&lt;/p>
+&lt;h2 class="group " id="toc-8"
+>参考资料&lt;a href="#toc-8"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;p>&lt;a
+class="link"
+href="https://www.ibadboy.net/archives/2617.html"target="_blank" rel="noopener">无缝从Typecho迁移到WordPress，支持WordPress 5&lt;/a
+>
+&lt;/p>
+&lt;p>&lt;a
+class="link"
+href="https://stackoverflow.com/questions/36882149/error-1067-42000-invalid-default-value-for-created-at"target="_blank" rel="noopener">stackoverflow上的问答&lt;/a
+>
+&lt;/p></description></item><item><title>通过宝塔面板实现MySQL性能简单调优</title><link>https://nai.si/2022/04/04/%E9%80%9A%E8%BF%87%E5%AE%9D%E5%A1%94%E9%9D%A2%E6%9D%BF%E5%AE%9E%E7%8E%B0mysql%E6%80%A7%E8%83%BD%E7%AE%80%E5%8D%95%E8%B0%83%E4%BC%98.html/</link><pubDate>Mon, 04 Apr 2022 15:29:02 +0000</pubDate><guid>https://nai.si/2022/04/04/%E9%80%9A%E8%BF%87%E5%AE%9D%E5%A1%94%E9%9D%A2%E6%9D%BF%E5%AE%9E%E7%8E%B0mysql%E6%80%A7%E8%83%BD%E7%AE%80%E5%8D%95%E8%B0%83%E4%BC%98.html/</guid><description>
+&lt;h2 class="group " id="toc-0"
+>前言&lt;a href="#toc-0"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;p> 在PHP+MYSQL架构网站运行过程中，往往会遇到各种性能问题影响，如MySQL、PHP、CPU、磁盘IO、缓存等，其中MySQL瓶颈就是最常见也最难解决的一种影响网站性能的因素；通常，我们会使用redis、memcached等缓存软件来缓存内容，这确实是最优的解决方案之一，但这需要网站程序的支持，然而多数常用网站程序并不支持或者不能完美支持这些缓存软件，今天我们就来谈谈如何通过MySQL自身的配置调整来优化MySQL性能，以缓解MySQL瓶颈问题。&lt;/p>
+&lt;h2 class="group " id="toc-1"
+>&lt;strong fr-fix-stroke="true">准备&lt;/strong>&lt;a href="#toc-1"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;p id="block-3efa2659-0747-4bbf-97c5-53a63ff33614">
+&amp;nbsp; &amp;nbsp; 1、宝塔Linux面板 正式版 5.2.0+ (2017/09/20发布)&amp;nbsp;&amp;nbsp;测试版5.2.4+&lt;br />&amp;nbsp; &amp;nbsp; 2、MySQL 5.x
+&lt;/p>
+&lt;h2 class="group " id="toc-2"
+>&lt;strong fr-fix-stroke="true">调优&lt;/strong>&lt;a href="#toc-2"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;p>&lt;strong>通常MySQL调优我们分以下几部分：&lt;/strong>&lt;br>
+    1、MySQL配置参数调优 (需要根据网站运行情况调整)&lt;br>
+    2、数据表索引调优 (效果明显，但通常优秀的开源程序都不需要调整)&lt;br>
+    3、SQL语句调优 (这是程序员或DBA干的事)&lt;/p>
+&lt;p>今天我们主要谈谈如果配合宝塔面板的新功能来进行MySQL配置参数调优，我们先来看两张图片：&lt;/p>
+&lt;p>(图1)&lt;/p>
+&lt;p>(图2)&lt;/p>
+&lt;p>很明显，(图1)显示的是MySQL当前的运行状态，(图2)显示的是MySQL主要配置参数&lt;/p>
+&lt;p>下面我们就来解读一下这两张图：&lt;/p>
+&lt;h2 class="group " id="toc-3"
+>&lt;strong>1、活动/峰值连接数&lt;/strong>&lt;a href="#toc-3"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;p>      (图1)中当前活动的连接为1个，自MySQL服务启动以来，最高连接数为54；当最高连接数接近或等于(图2)中的max_connections时，应适当增加max_connections，需要注意的是，不要一下子增加过多，建议每次增加50，观察一段时间，不够再继续增加。&lt;/p>
+&lt;h2 class="group " id="toc-4"
+>&lt;strong>2、线程缓存命中率&lt;/strong>&lt;a href="#toc-4"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;p>      (图1)中线程缓存命中率为99.78%，若这个值小于90%，建议适当增加(图2)中的thread_cache_size，建议每次增加8。&lt;/p>
+&lt;h2 class="group " id="toc-5"
+>&lt;strong>3、索引命中率&lt;/strong>&lt;a href="#toc-5"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;p>      (图1)中索引命中率为99.50%，若这个值小于95%，建议适当增加(图2)中的key_buffer_size，建议每次增加64，需要说明的是，若您的数据库使用的是Innodb引擎，可忽略这个选项&lt;/p>
+&lt;h2 class="group " id="toc-6"
+>&lt;strong>4、Innodb索引命中率&lt;/strong>&lt;a href="#toc-6"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;p>      (图1)中Innodb索引命中率为100%，若这个值小于95%，建议适当增加(图2)中的innodb_buffer_pool_size，建议每次增加64，需要说明的是，若您的数据库没有使用Innodb引擎，可忽略这个选项&lt;/p>
+&lt;h2 class="group " id="toc-7"
+>&lt;strong>5、查询缓存命中率&lt;/strong>&lt;a href="#toc-7"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;p>      MySQL查询缓存是个比较受争议的功能，个人建议当你有在使用redis、memcached等缓存软件时，在(图2)中将query_cache_size设为0可以将其关闭，当你没有使用缓存软件，有多余的内存使用，且数据库瓶颈明显存在时，可以尝试开启查询缓存，这是个非常依赖数据表结构及SQL语句优化的功能，若数据表结构和SQL语句都针对查询缓存进行过优化，它的效果还是很不错的。&lt;/p>
+&lt;h2 class="group " id="toc-8"
+>&lt;strong>6、创建临时表到磁盘&lt;/strong>&lt;a href="#toc-8"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;p>      (图1)中创建临时表到磁盘的比例是0.42%，这说明大部分临时表创建到内存了，不会过多增加磁盘IO的开销，建议，当比例大于2%时适当增加(图1)中的tmp_cache_size，建议每次增加32，当比例大于60%时，放弃吧，有些开源程序并没有专门优化过SQL语句，所以在运行过程中会开启大量临时表，加多少缓存都是不够用的。&lt;/p>
+&lt;h2 class="group " id="toc-9"
+>&lt;strong>7、已打开的表&lt;/strong>&lt;a href="#toc-9"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;p>      当(图1)中的已打开的表接近或等于(图2)中的table_open_cache时，可以适当增加table_open_cache，但若设置过大可能导致您的程序频繁中断MySQL连接，建议在1024以内，最大不要超过2048。&lt;/p>
+&lt;h2 class="group " id="toc-10"
+>&lt;strong>8、没有使用索引的量、没有使用索引的JOIN量&lt;/strong>&lt;a href="#toc-10"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;p>      若不为0，就检查下数据表索引吧，其实只要没有疯涨，比如一天增涨几千，一般可以忽略，必竟优化索引还是程序员或DBA去干比较合适。&lt;/p>
+&lt;h2 class="group " id="toc-11"
+>&lt;strong>9、排序后的合并次数&lt;/strong>&lt;a href="#toc-11"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;p>      如果这个值在缓慢增张，建议适当增加(图2)中的sort_buffer_size，建议每次增加512，但最大不要超过8192，如果这个值一直在疯涨，增加sort_buffer_size也没用，就放弃这个选项吧，这个锅还是给程序开发者背。&lt;/p>
+&lt;h2 class="group " id="toc-12"
+>&lt;strong>10、锁表次数&lt;/strong>&lt;a href="#toc-12"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;p>      如果服务器CPU开销不大的情况下，疯狂锁表，建议你将所有数据表转换成innodb，记得转换前备份哦。&lt;/p>
+&lt;h2 class="group " id="toc-13"
+>&lt;strong>11、优化方案&lt;/strong>&lt;a href="#toc-13"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;p>      这个是我们根据内存大小给的一个推荐优化方案，仅是建议仅用于基础参考值，还是要根据实据情况来调整每一个配置项。&lt;/p>
+&lt;p>注意：保存参数配置后不会立即生效，记得要重启MySQL服务。&lt;/p>
+&lt;h2 class="group " id="toc-14"
+>写在最后：&lt;a href="#toc-14"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;p>      因我本人并不是专业DBA，难免有错误或遗漏的地方，还请大家给予指正，另外，可能面板提供的参考数据及调整选项还不够丰富，我们在往后的更新中会根据需要考虑继续增加更多的调整选项，谢谢大家的支持。&lt;/p></description></item><item><title>宝塔面板解锁Nginx防火墙及网站监控报表</title><link>https://nai.si/2022/03/16/%E5%AE%9D%E5%A1%94%E9%9D%A2%E6%9D%BF%E8%A7%A3%E9%94%81nginx%E9%98%B2%E7%81%AB%E5%A2%99%E5%8F%8A%E7%BD%91%E7%AB%99%E7%9B%91%E6%8E%A7%E6%8A%A5%E8%A1%A8.html/</link><pubDate>Wed, 16 Mar 2022 15:25:52 +0000</pubDate><guid>https://nai.si/2022/03/16/%E5%AE%9D%E5%A1%94%E9%9D%A2%E6%9D%BF%E8%A7%A3%E9%94%81nginx%E9%98%B2%E7%81%AB%E5%A2%99%E5%8F%8A%E7%BD%91%E7%AB%99%E7%9B%91%E6%8E%A7%E6%8A%A5%E8%A1%A8.html/</guid><description>
+&lt;h2 class="group " id="toc-0"
+>说明&lt;a href="#toc-0"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;ul>
+&lt;li>测试时间：&lt;strong>2022-03-16&lt;/strong>&lt;/li>
+&lt;li>测试环境：&lt;strong>Ubuntu 20.04&lt;/strong>&lt;/li>
+&lt;li>宝塔版本：&lt;strong>7.7.0&lt;/strong>&lt;/li>
+&lt;li>插件版本：&lt;strong>Nginx防火墙 8.9.6 / 网站监控报表 6.6&lt;/strong>&lt;/li>
+&lt;li>仅测试了&lt;code class="prettyprint" >Nginx防火墙&lt;/code>及&lt;code class="prettyprint" >网站监控报表&lt;/code>两款插件，其它收费插件未测试&lt;/li>
+&lt;li>&lt;strong>注意：其它系统及版本未进行测试，请自行验证，请勿在生产环境下使用；&lt;/strong>&lt;/li>
+&lt;li>&lt;strong>注意：修改代码后重启面板服务才能使其生效，如果面板出现乱码重启服务器即可；&lt;/strong>&lt;/li>
+&lt;/ul>
+&lt;h2 class="group " id="toc-1"
+>解锁方式一&lt;a href="#toc-1"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;p>找到并编辑&lt;code class="prettyprint" >/www/server/panel/class/panelPlugin.py&lt;/code>文件&lt;br>
+使用&lt;code class="prettyprint" >Ctrl+F&lt;/code>搜索并找到&lt;code class="prettyprint" >softList['list'] = tmpList&lt;/code>这段代码，在其下方添加如下代码：&lt;/p>
+&lt;pre class="wp-block-code">&lt;code class="prettyprint" >// 解锁专业版
+softList&amp;#091;&amp;#039;pro&amp;#039;] = 1
+for soft in softList&amp;#091;&amp;#039;list&amp;#039;]:
+soft&amp;#091;&amp;#039;endtime&amp;#039;] = 0
+// 解锁企业版
+softList&amp;#091;&amp;#039;ltd&amp;#039;] = 99999999999
+for soft in softList&amp;#091;&amp;#039;list&amp;#039;]:
+soft&amp;#091;&amp;#039;endtime&amp;#039;] = 0&lt;/code>&lt;/pre>
+&lt;p>示例：&lt;/p>
+&lt;p>&lt;strong fr-fix-stroke="true">说明&lt;/strong>&lt;br>
+&lt;strong fr-fix-stroke="true">修改完成后重启面板，重启完成后就可以直接安装收费的插件了，&lt;code class="prettyprint" >Nginx防火墙&lt;/code>也可以直接安装使用&lt;/strong>&lt;br>
+&lt;strong fr-fix-stroke="true">安装后界面可能不会显示宝塔专业版或者企业版图标，但实际上你已经获得特权，可以直接安装收费插件&lt;/strong>&lt;/p>
+&lt;h2 class="group " id="toc-2"
+>解锁方式二&lt;a href="#toc-2"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;p>找到并编辑&lt;code class="prettyprint" >/www/server/panel/data/plugin.json&lt;/code>文件&lt;/p>
+&lt;pre class="wp-block-code">&lt;code class="prettyprint" >// 解锁付费插件
+搜索字符串"endtime": -1全部替换为"endtime": 999999999999
+// 解锁授权图标
+搜索字符串"ltd": -1, "pro": -1全部替换为"ltd": -1, "pro": 0
+其中pro表示专业版，ltd表示企业版；-1表示无授权，0表示永久授权；&lt;/code>&lt;/pre>
+&lt;p>找到并编辑&lt;code class="prettyprint" >/www/server/panel/data/repair.json&lt;/code>文件&lt;/p>
+&lt;pre class="wp-block-code">&lt;code class="prettyprint" >查找字符串"id": 16将这段修复权限的代码全部删除；&lt;/code>&lt;/pre>
+&lt;h2 class="group " id="toc-3"
+>取消强制账号登陆&lt;a href="#toc-3"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;p>在SSH端输入以下代码即可：&lt;/p>
+&lt;pre class="wp-block-code">&lt;code class="prettyprint" >sed -i "s|if (bind_user == &amp;#039;True&amp;#039;) {|if (bind_user == &amp;#039;REMOVED&amp;#039;) {|g" /www/server/panel/BTPanel/static/js/index.js
+rm -rf /www/server/panel/data/bind.pl&lt;/code>&lt;/pre>
+&lt;h2 class="group " id="toc-4"
+>宝塔版本降级&lt;a href="#toc-4"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;p>&lt;strong>鉴于目前&lt;code class="prettyprint" >7.8.0&lt;/code>版本不能跳过账户登录，可以使用以下方式降级到&lt;code class="prettyprint" >7.7.0&lt;/code>版本使用；&lt;/strong>&lt;br>
+&lt;strong>手动安装&lt;/strong>&lt;/p>
+&lt;pre class="wp-block-code">&lt;code class="prettyprint" >离线升级步骤：
+1、安装新版宝塔，下载离线升级包
+2、将升级包上传到服务器中的/root目录
+3、解压文件：unzip LinuxPanel-*
+4、切换到升级包目录： cd panel
+5、执行升级脚本：bash update.sh
+6、删除升级包：cd .. &amp;&amp; rm -f LinuxPanel-*.zip &amp;&amp; rm -rf panel
+全部安装完成后，执行以下内容，避免官方搞小动作
+echo &amp;#039;127.0.0.1 bt.cn&amp;#039; &amp;gt;&amp;gt;/etc/hosts
+历史版本下载地址：
+http:&amp;#047;&amp;#047;download.bt.cn/install/update/LinuxPanel-7.5.2.zip
+&lt;/code>&lt;/pre>&lt;blockquote>
+&lt;/blockquote></description></item><item><title>hysteria一款为恶劣网络进行优化的工具教程</title><link>https://nai.si/2022/02/19/hysteria%E4%B8%80%E6%AC%BE%E4%B8%BA%E6%81%B6%E5%8A%A3%E7%BD%91%E7%BB%9C%E8%BF%9B%E8%A1%8C%E4%BC%98%E5%8C%96%E7%9A%84%E5%B7%A5%E5%85%B7%E6%95%99%E7%A8%8B.html/</link><pubDate>Sat, 19 Feb 2022 13:16:00 +0000</pubDate><guid>https://nai.si/2022/02/19/hysteria%E4%B8%80%E6%AC%BE%E4%B8%BA%E6%81%B6%E5%8A%A3%E7%BD%91%E7%BB%9C%E8%BF%9B%E8%A1%8C%E4%BC%98%E5%8C%96%E7%9A%84%E5%B7%A5%E5%85%B7%E6%95%99%E7%A8%8B.html/</guid><description>
+&lt;h2 class="group " id="toc-0"
+>简介：&lt;a href="#toc-0"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;p>Hysteria 是一个功能丰富的网络实用程序，针对质量较差的网络（例如卫星连接、拥挤的公共 Wi-Fi、从中国连接到国外的服务器）进行了优化，由自定义版本的 QUIC 协议提供支持。&lt;br>
+我已经测试了两天，对于线路很拉跨的小鸡效果很显著，真福音。&lt;/p>
+&lt;h2 class="group " id="toc-1"
+>安装：&lt;a href="#toc-1"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;p>这个协议AZ大佬去年就提过，咱笨了点，没有搭建成功，就放弃了。现在有大佬写了一键搭建脚本，方便我们这些小白，需注意：我用debian10和debian11没有搭建成功，换到乌班图20.04（Ubuntu）才成功，有能力的小伙伴可以研究下。最好指定个域名到服务器。root用户下黏贴下面的命令回车&lt;br>
+一键安装脚本&lt;/p>
+&lt;pre>&lt;code class="prettyprint" > bash &amp;lt;(curl -fsSL https://git.io/hysteria.sh)&lt;/code>&lt;/pre>
+&lt;h2 class="group " id="toc-2"
+>配置过程&lt;a href="#toc-2"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;p>首次安装后: hihy命令调出菜单,如更新了hihy脚本，请执行选项9或者12,获得最新的配置&lt;/p>
+&lt;pre>&lt;code class="prettyprint" > -------------------------------------------
+|********** Hi Hysteria **********|
+|********** Author: emptysuns ************|
+|********** Version: 0.3.5 **********|
+-------------------------------------------
+Tips:hihy 命令再次运行本脚本.
+.............................................
+###############################
+.....................
+1) 安装 hysteria
+2) 卸载 hysteria
+.....................
+3) 启动 hysteria
+4) 暂停 hysteria
+5) 重新启动 hysteria
+6) 运行状态
+.....................
+7) 更新hysteria core
+8) 查看当前配置
+9) 重新配置hysteria
+10) 切换ipv4/ipv6优先级
+11) 更新hihy
+12) 完全重置所有配置
+###############################
+0)退出
+.............................................
+请选择:&lt;/code>&lt;/pre>
+&lt;p>一路回车到请输入认证口令 这里是密码自己填一个，然后就是延迟、上传、下载速度如实填写就行了。有宝塔、防火墙的自己开放一下端口，安装完会出现下面图上的代码!&lt;br>
+&lt;img decoding="async" src="https://m0rml1n.oss-cn-shanghai.aliyuncs.com/nai_si/usr/uploads/2022/04/19/moe20220418152112.jpg" alt="" title="" />&lt;br>
+把中间的代码复制出来新建json放进去，&lt;br>
+把127.0.0.1:8888改成127.0.0.1:10809&lt;br>
+127.0.0.1:8889改成127.0.0.1:10808&lt;/p>
+&lt;h2 class="group " id="toc-3"
+>客户端：&lt;a href="#toc-3"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;p>官方电脑端不好用 所以用的v2rayN，下面是教程&lt;br>
+电脑端手动兼容教程&lt;br>
+下载v2rayN最新客户端：&lt;a
+class="link"
+href="https://github.com/2dust/v2rayN/releases/download/5.16/v2rayN-Core.zip"target="_blank" rel="noopener">https://github.com/2dust/v2rayN/releases/download/5.16/v2rayN-Core.zip&lt;/a
+>
+&lt;br>
+下载Hysteria官方客户端：&lt;a
+class="link"
+href="https://github.com/emptysuns/Hi_Hysteria/releases/download/0.3a/hihysteria_cmd_0.3a.rar"target="_blank" rel="noopener">https://github.com/emptysuns/Hi_Hysteria/releases/download/0.3a/hihysteria_cmd_0.3a.rar&lt;/a
+>
+&lt;br>
+下载Hysteria-cora：&lt;a
+class="link"
+href="https://github.com/HyNetwork/hysteria/releases/download/v1.0.3/hysteria-tun-windows-6.0-amd64.exe"target="_blank" rel="noopener">https://github.com/HyNetwork/hysteria/releases/download/v1.0.3/hysteria-tun-windows-6.0-amd64.exe&lt;/a
+>
+&lt;br>
+把Hysteria官方客户端里的acl文件夹整个复制到v2rayN客户端根目录&lt;br>
+把下载的hysteria-tun-windows-6.0-amd64.exe放进v2rayN客户端根目录&lt;/p>
+&lt;p>不想麻烦的直接下载我兼容好的v2rayN客户端&lt;br>
+&lt;a
+class="link"
+href="https://wwb.lanzoub.com/ii8ku03eipzg"target="_blank" rel="noopener">https://wwb.lanzoub.com/ii8ku03eipzg&lt;/a
+>
+&lt;br>
+密码:mjj&lt;/p>
+&lt;h2 class="group " id="toc-4"
+>导入节点&lt;a href="#toc-4"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;p>v2rayn右键添加自定义配置服务器，点击浏览 然后选择之前新建的json文件，core类型选择hysteria后确认就行了&lt;br>
+&lt;img decoding="async" src="https://m0rml1n.oss-cn-shanghai.aliyuncs.com/nai_si/usr/uploads/2022/04/19/moe20220418155759.jpg" alt="" title="" />&lt;/p>
+&lt;h2 class="group " id="toc-5"
+>hysteria各个协议介绍&lt;a href="#toc-5"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;p>&lt;a
+class="link"
+href="https://github.com/emptysuns/Hi_Hysteria/blob/main/md/protocol.md"target="_blank" rel="noopener">https://github.com/emptysuns/Hi_Hysteria/blob/main/md/protocol.md&lt;/a
+>
+&lt;/p>
+&lt;h2 class="group " id="toc-6"
+>更多客户端：&lt;a href="#toc-6"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;p>pc客户端用这个：Release v3.9.4 · Tornaco/Thanox · GitHub&lt;/p>
+&lt;p>ios用小火箭就可以&lt;/p>
+&lt;p>安卓在Google Play安装SagerNet与SagerNet的Hysteria扩展。&lt;br>
+更多使用方法：&lt;a
+class="link"
+href="https://github.com/emptysuns/Hi_Hysteria/blob/main/md/gui.md"target="_blank" rel="noopener">https://github.com/emptysuns/Hi_Hysteria/blob/main/md/gui.md&lt;/a
+>
+&lt;br>
+深入了解可以参考一下博文：&lt;a
+class="link"
+href="https://blog.imoeq.com/hi_hysteria/"target="_blank" rel="noopener">https://blog.imoeq.com/hi_hysteria/&lt;/a
+>
+&lt;/p></description></item><item><title>Linux VPS速度性能测试一键脚本 持续更新</title><link>https://nai.si/2022/01/19/linux-vps%E9%80%9F%E5%BA%A6%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95%E4%B8%80%E9%94%AE%E8%84%9A%E6%9C%AC-%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0.html/</link><pubDate>Wed, 19 Jan 2022 18:49:00 +0000</pubDate><guid>https://nai.si/2022/01/19/linux-vps%E9%80%9F%E5%BA%A6%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95%E4%B8%80%E9%94%AE%E8%84%9A%E6%9C%AC-%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0.html/</guid><description>&lt;img decoding="async" src="https://sunpma.com/usr/uploads/2020/01/2661570509.jpg" alt="" title="" />
+&lt;h2 class="group " id="toc-0"
+>下载测试&lt;a href="#toc-0"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;pre>&lt;code class="prettyprint" >CacheFly 亚太 - 100MB
+wget -O /dev/null http://cachefly.cachefly.net/100mb.test
+Online 法国 - 1000MB
+wget -O /dev/null http://ping.online.net/1000Mo.dat
+Online 荷兰 - 1000MB
+wget -O /dev/null http://ping-ams1.online.net/1000Mo.dat&lt;/code>&lt;/pre>
+&lt;h2 class="group " id="toc-1"
+>宽带测试&lt;a href="#toc-1"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;p>Speedtest GitHub项目地址：&lt;a
+class="link"
+href="https://github.com/sivel/speedtest-cli"target="_blank" rel="noopener">https://github.com/sivel/speedtest-cli&lt;/a
+>
+&lt;/p>
+&lt;pre>&lt;code class="prettyprint" >wget -O speedtest-cli https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py
+chmod +x speedtest-cli
+./speedtest-cli&lt;/code>&lt;/pre>
+&lt;p>测试详情：&lt;/p>
+&lt;pre>&lt;code class="prettyprint" >## 如果出现以下错误：
+/usr/bin/env: &amp;#039;python&amp;#039;: No such file or directory
+## 输入以下命令安装：
+apt-get install python
+## 测试结果：
+root@SunPma ~ # ./speedtest-cli --share
+Retrieving speedtest.net configuration...
+Testing from Microsoft Corporation (20.187.72.158)...
+Retrieving speedtest.net server list...
+Retrieving information for the selected server...
+Hosted by Misaka Network, Inc. (Hong Kong) [4.85 km]: 2.74 ms
+Testing download speed.............................................
+Download: 3514.72 Mbit/s
+Testing upload speed...............................................
+Upload: 964.31 Mbit/s
+Share results: http://www.speedtest.net/result/12678652753.png&lt;/code>&lt;/pre>
+&lt;h2 class="group " id="toc-2"
+>简单测试&lt;a href="#toc-2"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;pre>&lt;code class="prettyprint" >wget -qO- bench.sh | bash&lt;/code>&lt;/pre>
+&lt;p>[collapse status=&amp;ldquo;collapse-none&amp;rdquo; label=&amp;ldquo;详情查看&amp;rdquo;]&lt;img decoding="async" src="https://sunpma.com/usr/uploads/2021/12/406542444.png" alt="" title="" />[/collapse]&lt;/p>
+&lt;h2 class="group " id="toc-3"
+>三网测速&lt;a href="#toc-3"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;p>全面的国内三大运营商（电信，联通，移动）上传下载速率测试&lt;br>
+GitHub项目地址：&lt;a
+class="link"
+href="https://github.com/sunpma/Speedtest"target="_blank" rel="noopener">https://github.com/sunpma/Speedtest&lt;/a
+>
+&lt;/p>
+&lt;pre>&lt;code class="prettyprint" >bash &amp;lt;(curl -Lso- https://git.io/J1SEh)&lt;/code>&lt;/pre>
+&lt;pre>&lt;code class="prettyprint" >bash &amp;lt;(curl -Lso- https://cdn.jsdelivr.net/gh/sunpma/Speedtest/speedtest.sh)&lt;/code>&lt;/pre>
+&lt;p>[collapse status=&amp;ldquo;collapse-none&amp;rdquo; label=&amp;ldquo;详情查看&amp;rdquo;]&lt;img decoding="async" src="https://sunpma.com/usr/uploads/2022/01/3328789351.png" alt="" title="" />[/collapse]&lt;/p>
+&lt;h2 class="group " id="toc-4"
+>柠檬测试&lt;a href="#toc-4"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;p>快速测试&lt;/p>
+&lt;pre>&lt;code class="prettyprint" >wget -qO- http://ilemonra.in/LemonBenchIntl | bash -s fast&lt;/code>&lt;/pre>
+&lt;p>完整测试&lt;/p>
+&lt;pre>&lt;code class="prettyprint" >wget -qO- http://ilemonra.in/LemonBenchIntl | bash -s full&lt;/code>&lt;/pre>
+&lt;p>分类测试&lt;/p>
+&lt;pre>&lt;code class="prettyprint" ># 磁盘测试（快速测试模式）
+bash &amp;lt;(wget -qO- https://ilemonra.in/LemonBenchIntl) --dtfast
+# 磁盘测试（完整测试模式）
+bash &amp;lt;(wget -qO- https://ilemonra.in/LemonBenchIntl) --dtfull
+# 宽带测试（快速测试模式）
+bash &amp;lt;(wget -qO- https://ilemonra.in/LemonBenchIntl) --spfast
+# 宽带测试（完整测试模式）
+bash &amp;lt;(wget -qO- https://ilemonra.in/LemonBenchIntl) --spfull
+# Traceroute测试（快速测试模式）
+bash &amp;lt;(wget -qO- https://ilemonra.in/LemonBenchIntl) --trfast
+# Traceroute测试（完整测试模式）
+bash &amp;lt;(wget -qO- https://ilemonra.in/LemonBenchIntl) --trfull
+# CPU基准测试（快速测试模式）
+bash &amp;lt;(wget -qO- https://ilemonra.in/LemonBenchIntl) --sbcfast
+# CPU基准测试（完整测试模式）
+bash &amp;lt;(wget -qO- https://ilemonra.in/LemonBenchIntl) --sbcfull
+# 内存基准测试（快速测试模式）
+bash &amp;lt;(wget -qO- https://ilemonra.in/LemonBenchIntl) --sbmfast
+# 内存基准测试（完整测试模式）
+bash &amp;lt;(wget -qO- https://ilemonra.in/LemonBenchIntl) --sbmfull&lt;/code>&lt;/pre>
+&lt;p>作者链接：&lt;a
+class="link"
+href="https://blog.ilemonrain.com/linux/LemonBench.html"target="_blank" rel="noopener">https://blog.ilemonrain.com/linux/LemonBench.html&lt;/a
+>
+&lt;/p>
+&lt;p>[collapse status=&amp;ldquo;collapse-none&amp;rdquo; label=&amp;ldquo;详情查看&amp;rdquo;]&lt;img decoding="async" src="https://sunpma.com/usr/uploads/2021/12/2089209264.png" alt="" title="" />[/collapse]&lt;/p>
+&lt;h2 class="group " id="toc-5"
+>CPU跑分&lt;a href="#toc-5"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;pre>&lt;code class="prettyprint" >wget --no-check-certificate https://github.com/teddysun/across/raw/master/unixbench.sh &amp;&amp; chmod +x unixbench.sh &amp;&amp; ./unixbench.sh
+# 或者
+wget --no-check-certificate https://cdn.jsdelivr.net/gh/teddysun/across/unixbench.sh &amp;&amp; chmod +x unixbench.sh &amp;&amp; ./unixbench.sh&lt;/code>&lt;/pre>
+&lt;p>[collapse status=&amp;ldquo;collapse-none&amp;rdquo; label=&amp;ldquo;详情查看&amp;rdquo;]&lt;img decoding="async" src="https://sunpma.com/usr/uploads/2021/12/4053029492.png" alt="" title="" />&lt;img decoding="async" src="https://sunpma.com/usr/uploads/2021/12/1225485769.png" alt="" title="" />[/collapse]&lt;/p>
+&lt;h2 class="group " id="toc-6"
+>yabs.sh&lt;a href="#toc-6"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;p>完整测试&lt;/p>
+&lt;pre>&lt;code class="prettyprint" >curl -sL yabs.sh | bash&lt;/code>&lt;/pre>
+&lt;p>参数测试&lt;/p>
+&lt;pre>&lt;code class="prettyprint" >## 添加需要的参数
+curl -sL yabs.sh | bash -s -- -{fdighr49}
+## 例：（仅进行Geekbench 5测试）
+curl -sL yabs.sh | bash -s -- -fdi&lt;/code>&lt;/pre>
+&lt;p>可选参数列表&lt;/p>
+&lt;ul>
+&lt;li>&lt;code class="prettyprint" >-f&lt;/code> 此选项禁用fio测试&lt;/li>
+&lt;li>&lt;code class="prettyprint" >-d&lt;/code> 此选项禁用磁盘性能测试&lt;/li>
+&lt;li>&lt;code class="prettyprint" >-i&lt;/code> 此选项禁用网络性能测试&lt;/li>
+&lt;li>&lt;code class="prettyprint" >-g&lt;/code> 此选项将禁用Geekbench系统性能测试&lt;/li>
+&lt;li>&lt;code class="prettyprint" >-h&lt;/code> 此选项打印包含用法、检测到的标志和本地包（fio/iperf）状态的帮助消息&lt;/li>
+&lt;li>&lt;code class="prettyprint" >-r&lt;/code> 此选项可减少iperf位置的数量(Online.net/Clouvider LON+NYC）以减少带宽使用&lt;/li>
+&lt;li>&lt;code class="prettyprint" >-4&lt;/code> 此选项覆盖geekbench5性能测试，而运行geekbench4测试&lt;/li>
+&lt;li>&lt;code class="prettyprint" >-9&lt;/code> 这个选项除了运行Geekbench 5测试之外，还运行Geekbench 4测试&lt;/li>
+&lt;/ul>
+&lt;p>[collapse status=&amp;ldquo;collapse-none&amp;rdquo; label=&amp;ldquo;详情查看&amp;rdquo;]&lt;img decoding="async" src="https://sunpma.com/usr/uploads/2021/12/2125850036.png" alt="" title="" />[/collapse]&lt;/p>
+&lt;h2 class="group " id="toc-7"
+>Geekbench 5&lt;a href="#toc-7"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;p>Geekbench 5 官方测试&lt;/p>
+&lt;pre>&lt;code class="prettyprint" >wget --no-check-certificate https://cdn.geekbench.com/Geekbench-5.4.3-Linux.tar.gz
+tar xf Geekbench-5.4.3-Linux.tar.gz
+cd Geekbench-5.4.3-Linux
+./geekbench_x86_64&lt;/code>&lt;/pre>
+&lt;p>测试完成后会输出链接，复制链接在浏览器中打开即可查看测试分数；&lt;br>
+官网地址：&lt;a
+class="link"
+href="https://www.geekbench.com/download/"target="_blank" rel="noopener">https://www.geekbench.com/download/&lt;/a
+>
+&lt;/p>
+&lt;h2 class="group " id="toc-8"
+>流媒体解锁&lt;a href="#toc-8"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;p>一：全流媒体解锁测试&lt;/p>
+&lt;pre>&lt;code class="prettyprint" >bash &amp;lt;(curl -L -s https://raw.githubusercontent.com/lmc999/RegionRestrictionCheck/main/check.sh)
+&lt;/code>&lt;/pre>
+&lt;p>[collapse status=&amp;ldquo;collapse-none&amp;rdquo; label=&amp;ldquo;详情查看&amp;rdquo;]&lt;img decoding="async" src="https://sunpma.com/usr/uploads/2021/12/3153393685.png" alt="" title="" />[/collapse]&lt;/p>
+&lt;p>二：NETFLIX（NF解锁测试）&lt;/p>
+&lt;pre>&lt;code class="prettyprint" >## X86_64
+wget -O nf https://github.com/sjlleo/netflix-verify/releases/download/2.6/nf_2.6_linux_amd64 &amp;&amp; chmod +x nf &amp;&amp; clear &amp;&amp; ./nf -method full
+## ARM
+wget -O nf https://github.com/sjlleo/netflix-verify/releases/download/2.61/nf_2.61_linux_arm64 &amp;&amp; chmod +x nf &amp;&amp; clear &amp;&amp; ./nf&lt;/code>&lt;/pre>
+&lt;p>[collapse status=&amp;ldquo;collapse-none&amp;rdquo; label=&amp;ldquo;详情查看&amp;rdquo;]&lt;img decoding="async" src="https://sunpma.com/usr/uploads/2021/12/132406317.png" alt="" title="" />[/collapse]&lt;/p>
+&lt;h2 class="group " id="toc-9"
+>综合工具箱&lt;a href="#toc-9"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;pre>&lt;code class="prettyprint" >wget -O box.sh https://raw.githubusercontent.com/BlueSkyXN/SKY-BOX/main/box.sh &amp;&amp; chmod +x box.sh &amp;&amp; clear &amp;&amp; ./box.sh&lt;/code>&lt;/pre>
+&lt;p>[collapse status=&amp;ldquo;collapse-none&amp;rdquo; label=&amp;ldquo;详情查看&amp;rdquo;]&lt;img decoding="async" src="https://sunpma.com/usr/uploads/2021/12/1757225823.png" alt="" title="" />[/collapse]&lt;/p>
+&lt;h2 class="group " id="toc-10"
+>Speedtest-X&lt;a href="#toc-10"
+>&lt;i class="eva eva-link ml-3 align-middle text-theme opacity-0 transition ease-in-out group-hover:opacity-100">&lt;/i>&lt;/a
+>&lt;/h2>
+&lt;ul>
+&lt;li>GitHub项目：&lt;a
+class="link"
+href="https://github.com/BadApple9/speedtest-x"target="_blank" rel="noopener">https://github.com/BadApple9/speedtest-x&lt;/a
+>
+&lt;/li>
+&lt;li>Docker镜像：&lt;a
+class="link"
+href="https://hub.docker.com/r/badapple9/speedtest-x"target="_blank" rel="noopener">https://hub.docker.com/r/badapple9/speedtest-x&lt;/a
+>
+&lt;/li>
+&lt;/ul>
+&lt;pre>&lt;code class="prettyprint" ># 安装 Docker
+curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun
+# 拉取 Docker 镜像
+docker pull badapple9/speedtest-x
+# 运行容器
+docker run -d -p 9001:80 -it badapple9/speedtest-x&lt;/code>&lt;/pre>
+&lt;ul>
+&lt;li>-d：以常驻进程模式启动&lt;/li>
+&lt;li>9001: 默认容器开放端口，可改为其他端口&lt;/li>
+&lt;li>启动时可指定的环境变量：&lt;/li>
+&lt;li>-e WEBPORT=80: 容器内使用的端口&lt;/li>
+&lt;li>-e MAX_LOG_COUNT=100: 最大可保存多少条测速记录&lt;/li>
+&lt;li>-e IP_SERVICE=ip.sb: 使用的 IP 运营商解析服务(ip.sb 或 ipinfo.io)&lt;/li>
+&lt;li>-e SAME_IP_MULTI_LOGS=false: 是否允许同一IP记录多条测速结果&lt;/li>
+&lt;/ul></description></item></channel></rss>
